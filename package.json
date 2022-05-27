@@ -1,0 +1,31 @@
+{
+  "name": "simplifry",
+  "version": "1.0.0",
+  "description": "Simplify cooking. All recipes and nutritional data at once . Project 2 for GA",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mitchdmarino/Simplifry.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mitchdmarino/Simplifry/issues"
+  },
+  "homepage": "https://github.com/mitchdmarino/Simplifry#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-ejs-layouts": "^2.5.1",
+    "pg": "^8.7.3",
+    "rowdy-logger": "^1.0.2",
+    "sequelize": "^6.20.0"
+  }
+}
