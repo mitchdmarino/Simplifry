@@ -3,11 +3,12 @@
 
 <form method="POST" action="/recipes/<%=recipe.id%>/?_method=PUT">
     <label class="mx-auto block text-center" for="directions">Directions:</label>
-    <input class="mx-auto block text-center" type="text" name="directions" id="directions" value="<%=recipe.directions%>">
+    <p>Ex. 1. </p>
+    <textarea class="mx-auto block p-3 " cols="30" rows="5" name="directions" id="directions" ><%=recipe.directions%></textarea>
     <label class="mx-auto block text-center" for="story">story:</label>
-    <input class="mx-auto block text-center" type="text" name="story" id="story" value="<%=recipe.story%>">
+    <textarea class="mx-auto block text-center" name="story" id="story" ><%=recipe.story%></textarea>
     <label class="mx-auto block text-center" for="notes">notes:</label>
-    <input class="mx-auto block text-center" type="text" name="notes" id="notes" value="<%=recipe.notes%>">
+    <textarea class="mx-auto block text-center" name="notes" id="notes" ><%=recipe.notes%></textarea>
     <label class="mx-auto block text-center"for="img">image source URL</label>
     <input class="mx-auto block text-center" name="img" id="img" type="text" placeholder="image URL" value = <%=recipe.img%>>
 

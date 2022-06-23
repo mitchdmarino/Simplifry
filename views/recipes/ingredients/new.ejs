@@ -45,14 +45,24 @@
         <form method="POST" action="/recipes/ingredients" class="mx-auto">
             <input class="mx-auto block text-center" name="ingrName" id="ingrName" type="text"required placeholder="ingredient name" aria-label="Ingredient Name">
             </br>
-            <input class="mx-auto block text-center" name="ingrQuantity" id="ingrQuantity" type="number" required placeholder="quantity" aria-label="Quantity of Ingredient">
+            <input class="mx-auto block text-center" name="ingrQuantity" id="ingrQuantity" min="0" type="number" step="any" required placeholder="quantity" aria-label="Quantity of Ingredient">
             </br>
             <div class="mx-auto block text-center">
                 <label for="ingrMeasure">Units</label>
                 <select class="mx-auto block text-center w-[150px]" name="ingrMeasure" id="ingrMeasure" required placeholder="units of measurement" aria-label="Units of Measurement">
-                    <option value="Gram">Grams</option>
-                    <option value="Whole">Whole</option>
-                    <option value="Ounce">Ounces</option>
+                    <option value="serving">Servings</option>
+                    <option value="unit">Whole</option>
+                    <option value="gram">Grams</option>
+                    <option value="ounce">Ounces</option>
+                    <option value="pound">Pounds</option>
+                    <option value="kilogram">Kilograms</option>
+                    <option value="slice">Slices</option>
+                    <option value="cup">Cups</option>
+                    <option value="pinch">Pinch</option>
+                    <option value="dash">Dash</option>
+                    <option value="teaspoon">Teaspoon</option>
+                    <option value="tablespoon">Tablespoon</option>
+
             </div>
             </br>
             <input name="recipeId" id="recipeId" type="hidden" value="<%=recipe.id%>">
