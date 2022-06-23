@@ -48,6 +48,7 @@ router.post('/', async (req,res) => {
             directions: "1. Step One // 2. Step Two // 3. Step Three // ...",
             story: "I love this recipe because ...",
             notes: "",
+            public: false,
             userId: user.id
         })
         let recipeID = await recipe.id
@@ -144,8 +145,8 @@ router.post('/ingredients', async (req,res) => {
                 quantity: req.body.ingrQuantity, 
                 energy: energy,
                 fat: fat,
-                satFat: totalNutrients.FASAT.quantity  ,
-                transFat: totalNutrients.FATRN.quantity, 
+                satFat: satFat,
+                transFat: transFat, 
                 carbs: carbs,
                 fiber: fiber,
                 sugar: sugar,

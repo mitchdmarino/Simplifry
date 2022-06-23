@@ -67,3 +67,9 @@ recipeId: integer
 categoryId: integer 
 sequelize model:create --name recipesCategories --attributes recipeId:integer,categoryId:integer
 
+
+
+comments 
+
+userId: integer
+recipeId: integer

@@ -1,0 +1,19 @@
+
+<h2 class="text-6xl text-center my-5">Community Recipes</h2>
+<div id="recipe-container" class=" flex flex-row flex-wrap">
+        <% recipes.forEach(recipe => { %>
+            
+            
+            <div class="w-[400px] h-[300px] mx-auto my-5  ">
+                <a href="/recipes/<%=recipe.id%>" class=" w-full mx-auto block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 ">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-left "><%=recipe.name%></h5>
+                    <div class="flex">
+                        <img class="h-[100px]" src="<%=recipe.img%>">
+                        <p class=" font-normal ml-5 text-gray-700 text-lg break-normal "><%=recipe.notes%></p>
+                    </div>
+                </a>
+            </div>
+        
+        </br>
+        <% }) %>
+</div>

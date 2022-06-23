@@ -1,24 +1,47 @@
-Category: <%=category.name%>
-</br>
-Recipes: 
-<% recipes.forEach(recipe => { %>
-    <div class="w-1/2 my-5 " >
-        <a href="/recipes/<%=recipe.id%>" class="mx-auto block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%=recipe.name%></h5>
-        <p class="font-normal text-gray-700 dark:text-gray-400"><%=recipe.story%></p>
-        </a>
+<div>
+<h1 class="text-center text-4xl p-5"><%=category.name%></h1>
+</div>
+<div id="editSection" class="mx-auto w-1/2 text-center">
+    <button id="editCatButton">Edit/Delete Category</button>
+    <div class="hidden  " id="editCat">
+        <div class="p-4">
+            <form method="POST" action="/categories/<%=category.id%>/?_method=PUT">
+                <label for="name">Category Name</label>
+                <input type="text" name="name"  id="name" value="<%=category.name%>">
+                <button type="submit" class="focus:outline-none text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button>
+            </form>
+        </div>
+        <div class="">
+            <form method="POST" action="/categories/<%= category.id %>/?_method=DELETE">
+                <button type="submit"class="focus:outline-none text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Delete Category</button>
+            </form>
+        </div>
     </div>
-<% }) %>
+</div>
+
+
+
+<div id="recipe-container" class=" flex flex-row flex-wrap">
+    <% recipes.forEach(recipe => { %>
+        
+        
+        <div class="w-[400px] h-[300px] mx-auto my-5  ">
+            <a href="/recipes/<%=recipe.id%>" class=" w-full mx-auto block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 ">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-left "><%=recipe.name%></h5>
+                <div class="flex">
+                    <img class="h-[100px]" src="<%=recipe.img%>">
+                    <p class=" font-normal ml-5 text-gray-700 text-lg break-normal "><%=recipe.notes%></p>
+                </div>
+            </a>
+        </div>
+    
+    </br>
+    <% }) %>
+</div>
 
 
 
 
 
-<form method="POST" action="/categories/<%=category.id%>/?_method=PUT">
-    <input type="text" name="name"  id="name" value="<%=category.name%>">
-    <button type="submit">Edit Name</button>
-</form>
+<script src="/javascript/editCat.js"></script>
 
-<form method="POST" action="/categories/<%= category.id %>/?_method=DELETE">
-    <button type="submit"class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Delete Category</button>
-</form>

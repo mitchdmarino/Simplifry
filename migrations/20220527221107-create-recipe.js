@@ -23,6 +23,9 @@ module.exports = {
       img: {
         type: Sequelize.STRING
       },
+      public: {
+        type: Sequelize.BOOLEAN
+      },
       userId: {
         type: Sequelize.INTEGER
       },

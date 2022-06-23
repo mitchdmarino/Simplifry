@@ -1,14 +1,26 @@
-<ul>
-    <% categories.forEach(category => { %>
-        <li>
-            <a href="/categories/<%=category.id%>"><%= category.name %> </a>
-        </li>
-     <% }) %>
-</ul>
+<h2 class="text-center text-4xl p-4">All Categories</h2>
+
+<div id="createSection" class="mx-auto w-1/2 text-center">
+    <button id="createCategory">Create new category</button>
+    <div class="hidden" id="createCat">
+        <form method="POST" action="/categories">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name">
+            <button type="submit">Confirm</button>
+        </form>
+    </div>
+</div>
+
+<div class="text-center">
+    
+        <% categories.forEach(category => { %>
+            <div class="mx-auto w-[200px] m-2 p-5 bg-white border-solid rounded-lg border-4 border-orange-300">
+                <a href="/categories/<%=category.id%>" class="text-xl"><%= category.name %> </a>
+            </div>
+         <% }) %>
+</div>
+
+<script src="/javascript/createCatForm.js"
 
 
-<form method="POST" action="/categories">
-    <label for="name">Name</label>
-    <input type="text" name="name" id="name">
-    <button type="submit">Create New Tag</button>
-</form>
+
