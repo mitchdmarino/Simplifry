@@ -4,42 +4,48 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simplifry Cooking 👨‍🍳 👩‍🍳</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Simplifry Cooking 👨‍🍳 👩‍🍳 </title>
 </head>
 <body>
   <nav>
-    <ul> <% if (user) { %>
+    <ul class="flex-row flex"> <% if (user) { %>
 
-      <li>
+      <li class="mx-4">
         <a href="/users/logout">Logout</a>
       </li>
       
-      <li>
+      <li class="mx-4"> 
         <a href="/users/profile">Profile</a>
       </li>
       
-      <li>
+      <li class="mx-4">
         <a href="/recipes">RECIPES</a>
       </li>
       
       
     <%} else {%>
 
-      <li>
+      <li class="mx-4">
         <a href="/users/new">Sign up</a>
       </li>
 
-      <li>
+      <li class="mx-4">
         <a href="/users/login">Login</a>
       </li>
 
       <%}%>
-      <li>
+      <li class="mx-4">
         <a href="/recipes/new">Create New Recipe</a>
       </li>
+      
+      <li class="mx-4">
+        <a href="/categories">Categories</a>
+      </li>
+    
     </ul>
   </nav>
-  <h1>Simplifry 🍳</h1>
+  <h1 class="text-blue-500">Simplifry 🍳</h1>
   <%- body %> 
   
 </body>

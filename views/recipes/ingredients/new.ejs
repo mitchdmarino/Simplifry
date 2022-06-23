@@ -12,19 +12,19 @@
 <form method="POST" action="/recipes/ingredients">
     
     <label for="ingrName">ingrname</label>
-    <input name="ingrName" id="ingrName" type="text">
+    <input name="ingrName" id="ingrName" type="text"required>
     </br>
 
     <label for="ingrMeasure">measure</label>
-    <input name="ingrMeasure" id="ingrMeasure" type="text">
+    <input name="ingrMeasure" id="ingrMeasure" type="text"required>
     </br>
 
     <label for="ingrQuantity">quantity</label>
-    <input name="ingrQuantity" id="ingrQuantity" type="text">
+    <input name="ingrQuantity" id="ingrQuantity" type="text"required>
     
     </br>
     
-    <input name="recipeId" id="recipeId" type="text" value="<%=recipeId%>">
+    <input name="recipeId" id="recipeId" type="hidden" value="<%=recipeId%>">
     
     <button type="submit">Add Ingr</button>
 

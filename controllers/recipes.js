@@ -61,8 +61,10 @@ router.get('/edit/:id', async (req,res) => {
             id: req.params.id
         }
     })
+    const allCategories = await db.category.findAll()
+
     // show an edit form for the recipe
-    res.render('recipes/edit', {recipe: recipe})
+    res.render('recipes/edit', {recipe: recipe, categories: allCategories})
 })
 
 // GET /recipes/:id/ingredients/edit/:id to show a form for editing an ingredient 

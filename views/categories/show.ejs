@@ -1,0 +1,8 @@
+Category: <%=category.name%>
+</br>
+Recipes: 
+
+<form method="POST" action="/categories/<%=category.id%>/?_method=PUT">
+    <input type="text" name="name"  id="name" value="<%=category.name%>">
+    <button type="submit">Edit</button>
+</form>

@@ -9,6 +9,17 @@
     <label for="notes">notes:</label>
     <input type="text" name="notes" id="notes" value="<%=recipe.notes%>">
     <button type="submit">Edit</button>
+</form>
 
+<form method="POST" action="/categories/<%=categories.id%>">
+
+    <input list="categories">
+    <datalist id="categories">
+        <% categories.forEach(category => { %>
+            <option value="<%=category.name%>"></option>
+        <% }) %> 
+       
+    </datalist>
+    <button type="submit">Add Category</button>
 
 </form>
