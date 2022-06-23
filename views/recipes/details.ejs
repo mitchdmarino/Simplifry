@@ -1,7 +1,8 @@
-<h2> <%= recipe.name %> </h2>
-<h2><a href="/recipes/<%=recipe.id%>/ingredients/new">Edit this recipe</a></h2>
+<div class="bg-yellow-100">
+<h2 class="text-4xl"> <%= recipe.name %> </h2>
+<h2><a href="/recipes/<%=recipe.id%>/ingredients/new"><button class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Edit Recipe</button></a></h2>
 <form method="POST" action="/recipes/<%= recipe.id %>/?_method=DELETE">
-    <button type="submit">Delete Recipe</button>
+    <button type="submit"class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Delete Recipe</button>
 </form>
 
 <h3>Ingredients: </h3>
@@ -29,3 +30,13 @@
 <p><%= recipe.notes%></p>
 
 
+        <div>
+            <button>Add Tag</button>
+            <form method="POST" action="/recipes/<%=recipe.id%>/categories/?_method=PUT">
+
+            </form>
+
+        </div>
+        
+
+</div>
