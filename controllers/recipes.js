@@ -26,14 +26,25 @@ router.get('/', async (req,res) => {
 
 // GET /recipes/new for user to create a new recipe (associated with their account)
 router.get('/new', (req,res) => {
-    console.log('wtf is happening')
     res.render('recipes/new')
+})
+
+// GET /ingredients/new 
+
+router.get('/edit/:id', async (req,res) => {
+    const recipe = await db.recipe.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+    // show an edit form for the recipe
+    res.render('recipes/edit', {recipe: recipe})
 })
 
 // POST route for submission of create recipe form 
 // need to be able to create ingredients that will be associated with recipe id 
 
-router.post('/new', async (req,res) => {
+router.post('/', async (req,res) => {
     try {
         const user = res.locals.user 
         let recipe = await user.createRecipe({
@@ -52,7 +63,7 @@ router.post('/new', async (req,res) => {
         console.log(recipe)
         let recipeID = await recipe.id
         console.log(recipeID)
-        res.redirect(`/recipes/${recipeID}`)
+        res.redirect(`/${recipeID}`)
         
         
 
@@ -94,6 +105,7 @@ router.put('/:id', async (req,res) => {
 // GET /recipes/:id show details about specific recipe, grab associated ingredients 
 
 router.get('/:id', async (req,res) => {
+   try {
     if (!res.locals.user) {
         res.render('users/login.ejs', { msg: 'please log in to view recipe details, or check out the community recipes instead' })
     }
@@ -109,13 +121,30 @@ router.get('/:id', async (req,res) => {
             },
             include: [db.ingredient]
         })
+
         
         // console.log(recipe[0], 'did we get the correct recipe?')
-        // console.log(recipe[0].ingredients, 'here are the ingredients')
+        if (recipe.length===0) {
+            
+            res.redirect('/users/profile')
+
+        }
+        else {
+            // console.log(recipe[0].ingredients, 'here are the ingredients')
         // pass along the first recipe (should be the only one, along with all of the ingredients 
         // associated with that recipe )
         res.render('recipes/details', {recipe: recipe[0], ingredients: recipe[0].ingredients})
+        }
+        
     }
+   }
+   catch (err) {
+       console.log(err,'😢')
+   }
+})
+
+router.get('/:recipeId/ingredients/new', async (req, res) => {
+    res.render('recipes/ingredients/new', {recipeId: req.params.recipeId})
 })
 
 
