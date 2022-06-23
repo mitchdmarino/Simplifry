@@ -1,5 +1,6 @@
 # Simplifry
 ## Simplify cooking. All recipes and nutritional data at once . 
+Deployed Link: https://simplifry.herokuapp.com/
 
 Simplifry is the best Sous Chef around! Conveniently organize all of your recipes  with useful nutritional information. 
 
@@ -80,6 +81,7 @@ However, this api is more restrictive (only 400 recipes total per month for free
 | GET | /recipes/edit/:id | Edit \(Read\) | shows a form for editting a specific recipe \(i.e. /recipes/edit/1\) |
 | PUT | /recipes/:id | Update \(Update\) | updates the data for a specific recipe \(i.e. /recipes/1\) |
 | DELETE | /recipes/:id | Destroy \(Delete\) | deletes the recipe with the specified id \(i.e. /recipes/1\) |
+
 
 RESTful CRUD for Categories
 | VERB | URL pattern | Action \(CRUD\) | Description |
