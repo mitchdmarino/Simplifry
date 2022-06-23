@@ -1,7 +1,9 @@
 require('dotenv').config()
 // required packages
+
 const express = require('express')
 const rowdy = require('rowdy-logger')
+const methodOverride = require('method-override')
 const cookieParser = require('cookie-parser')
 const db = require('./models')
 const cryptoJS = require('crypto-js')
@@ -13,10 +15,14 @@ app.set('view engine', 'ejs')
 
 
 
+
 // middlewares
 const rowdyRes = rowdy.begin(app)
+app.use(express.static('Public'))
 app.use(require('express-ejs-layouts'))
 app.use(express.urlencoded({ extended: false }))
+app.use(express.static('Public'))
+app.use(methodOverride('_method'))
 
 app.use(cookieParser())
 

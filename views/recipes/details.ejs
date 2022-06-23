@@ -2,7 +2,54 @@
 
 <h3>Ingredients: </h3>
 
-<% ingredients.forEach(ingredient => { %>
-    <li><%=ingredient.name%></li>
+<% if(ingredients) { %>
+    <% ingredients.forEach(ingredient => { %>
+        <li><%=ingredient.name%></li>
+    <%}) %>
+<% } %>
 
-<% }) %>
+<form method="POST" action="/recipes/<%=recipe.id%>">
+    
+    <label for="ingrName">ingrname</label>
+    <input name="ingrName" id="ingrName" type="text">
+    </br>
+
+    <label for="ingrMeasure">measure</label>
+    <input name="ingrMeasure" id="ingrMeasure" type="text">
+    </br>
+
+    <label for="ingrQuantity">quantity</label>
+    <input name="ingrQuantity" id="ingrQuantity" type="text">
+    </br>
+    <button id="editIngrs" type="submit">Add Ingr</button>
+
+</form>
+
+<form method="POST" action="/recipes/<%=recipe.id%>/?_method=PUT">
+    <label for="directions">Directions:</label>
+    <input type="text" name="directions" id="directions" value="<%=recipe.directions%>">
+    <label for="story">story:</label>
+    <input type="text" name="story" id="story" value="<%=recipe.story%>">
+    <label for="notes">notes:</label>
+    <input type="text" name="notes" id="notes" value="<%=recipe.notes%>">
+    <button type="submit">Edit</button>
+
+
+</form>
+
+
+
+
+<h3>Directions: </h3> <button id="editDirections">Edit</button>
+
+<p><%=recipe.directions%></p>
+
+<h3>Story: </h3><button id="editStory">Edit</button>
+
+<p><%= recipe.story %></p>
+
+<h3>Additional notes: </h3><button id="editNotes">Edit</button>
+
+<p><%= recipe.notes%></p>
+
+
