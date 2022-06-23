@@ -35,7 +35,7 @@ Make sure to replace the hashes with your unique code.
 
 6. You will need to create the database for this project and migrate the models to it. In your terminal, run the following two commands: 
 ``` 
-create db simplifry 
+createdb simplifry 
 sequelize db:migrate 
 ```
 
