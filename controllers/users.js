@@ -29,6 +29,16 @@ router.post('/', async (req,res) => {
             // todo: encrypt id 
             const encryptedId = cryptoJS.AES.encrypt(user.id.toString(), process.env.ENC_KEY).toString()
             res.cookie('userId', encryptedId)
+            // give them categories Breakfast Lunch and dinner 
+            await user.createCategory({
+                name: 'Breakfast'
+            })
+            await user.createCategory({
+                name: 'Lunch'
+            })
+            await user.createCategory({
+                name: 'Dinner'
+            })
             //redirect to the homepage (in the future this could redirect elsewhere)
             res.redirect('/')
         }

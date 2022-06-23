@@ -18,10 +18,10 @@
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900"><%=ingredient.name%></th>
                         <td class="px-6 py-4"><%=ingredient.quantity%></td>
                         <td class="px-6 py-4"><%=ingredient.measure%></td>
-                        <% if (!ingredient.energy) { %>
-                            <td class="px-6 py-4" >Not Available</td>
-                        <% } else {%>
+                        <% if (ingredient.energy>=0) { %>
                             <td class="px-6 py-4" >Available</td>
+                        <% } else {%>
+                            <td class="px-6 py-4" >Not Available</td>
                         <% } %>
                         <td class="px-6 py-4">
                             <a href="/recipes/<%= recipe.id %>/ingredients/edit/<%=ingredient.id%>">Edit</a>

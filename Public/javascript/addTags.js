@@ -4,3 +4,4 @@ const addTagForm = document.querySelector('#addTagForm')
         addTagForm.classList.remove('hidden')
         addTagButton.classList.add('hidden')
     })
+
