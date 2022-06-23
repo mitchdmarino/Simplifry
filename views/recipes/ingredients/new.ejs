@@ -1,33 +1,66 @@
-
-<% if(ingredients) { %>
-    <% ingredients.forEach(ingredient => { %>
-        <li><%=ingredient.quantity%> <%= ingredient.measure %> <%=ingredient.name%></li>
-        <a href="/recipes/<%= recipeId %>/ingredients/edit/<%=ingredient.id%>">Edit</a>
-        <form method="POST" action="/recipes/<%=recipeId%>/ingredients/<%= ingredient.id %>/?_method=DELETE">
-            <button type="submit">Delete Ingredient</button>
+<h1 class=" text-4xl text-black text-center"> Ingredients for <%=recipe.name%></h1>
+<div id="current-ingredients" class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <% if(ingredients.length>0) { %>
+        <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr >
+                <th scope="col" class="px-6 py-3">Ingredient</th>
+                <th scope="col" class="px-6 py-3">Amount</th>
+                <th scope="col" class="px-6 py-3">Unit</th>
+                <th scope="col" class="px-6 py-3">Nutrition?</th>
+                <th scope="col" class="px-6 py-3">Edit</th>
+                <th scope="col" class="px-6 py-3">Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% ingredients.forEach(ingredient => { %>
+                    <tr class="bg-white border-b dark:bg-gray-800">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900"><%=ingredient.name%></th>
+                        <td class="px-6 py-4"><%=ingredient.quantity%></td>
+                        <td class="px-6 py-4"><%=ingredient.measure%></td>
+                        <% if (!ingredient.energy) { %>
+                            <td class="px-6 py-4" >Not Available</td>
+                        <% } else {%>
+                            <td class="px-6 py-4" >Available</td>
+                        <% } %>
+                        <td class="px-6 py-4">
+                            <a href="/recipes/<%= recipe.id %>/ingredients/edit/<%=ingredient.id%>">Edit</a>
+                        </td>
+                        <td class="px-6 py-4">
+                            <form method="POST" action="/recipes/<%=recipe.id%>/ingredients/<%= ingredient.id %>/?_method=DELETE">
+                                <button type="submit">Delete </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <%}) %>
+            </tbody>
+        </table>
+    <% } else {%>
+        <p class="text-center  ">Add Ingredients Below</p>
+        <% } %>
+</div>
+<div class=" bg-gray-200">
+    <div id="new-ingredient" class="rounded border-solid border-green-500 border-4 mx-auto pt-5 w-3/5 bg-cover bg-[url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXfJiemntDYEb-3PrKDHEvEoQv1HaOYBledg&usqp=CAU')]">
+        <form method="POST" action="/recipes/ingredients" class="mx-auto">
+            <input class="mx-auto block text-center" name="ingrName" id="ingrName" type="text"required placeholder="ingredient name" aria-label="Ingredient Name">
+            </br>
+            <input class="mx-auto block text-center" name="ingrQuantity" id="ingrQuantity" type="number" required placeholder="quantity" aria-label="Quantity of Ingredient">
+            </br>
+            <div class="mx-auto block text-center">
+                <label for="ingrMeasure">Units</label>
+                <select class="mx-auto block text-center w-[150px]" name="ingrMeasure" id="ingrMeasure" required placeholder="units of measurement" aria-label="Units of Measurement">
+                    <option value="Gram">Grams</option>
+                    <option value="Whole">Whole</option>
+                    <option value="Ounce">Ounces</option>
+            </div>
+            </br>
+            <input name="recipeId" id="recipeId" type="hidden" value="<%=recipe.id%>">
+            <button type="submit" class="block mx-auto bg-black text-xl text-white">Confirm Ingredient</button>
         </form>
-    <%}) %>
-<% } %>
+    </div>
+</div>
 
-<form method="POST" action="/recipes/ingredients">
-    
-    <label for="ingrName">ingrname</label>
-    <input name="ingrName" id="ingrName" type="text"required>
-    </br>
 
-    <label for="ingrMeasure">measure</label>
-    <input name="ingrMeasure" id="ingrMeasure" type="text"required>
-    </br>
-
-    <label for="ingrQuantity">quantity</label>
-    <input name="ingrQuantity" id="ingrQuantity" type="text"required>
-    
-    </br>
-    
-    <input name="recipeId" id="recipeId" type="hidden" value="<%=recipeId%>">
-    
-    <button type="submit">Add Ingr</button>
-
-</form>
-
-<a href="/recipes/edit/<%=recipeId%>">DONE</a>
+<div class="bg-blue-100">
+    <a href="/recipes/edit/<%=recipe.id%>">I'm done adding ingredients</a>
+</div>

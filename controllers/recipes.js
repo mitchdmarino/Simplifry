@@ -170,7 +170,7 @@ router.delete('/:recipeId/ingredients/:ingredientId', async (req,res) => {
             id: req.params.ingredientId
         }
     })
-    res.redirect(`/recipes/${req.params.recipeId}`)
+    res.redirect(`/recipes/${req.params.recipeId}/ingredients/new`)
 })
 
 
@@ -270,6 +270,7 @@ router.put('/:id', async (req,res) => {
     recipe.directions = req.body.directions  
     recipe.story = req.body.story
     recipe.notes = req.body.notes
+    recipe.img = req.body.img
     await recipe.save()
     res.redirect(`/recipes/${recipe.id}`)
 })
@@ -283,8 +284,13 @@ router.get('/:recipeId/ingredients/new', async (req, res) => {
             recipeId: req.params.recipeId
         }
     })
+    const recipe = await db.recipe.findOne({
+        where: {
+            id: req.params.recipeId
+        }
+    })
     res.render('recipes/ingredients/new', {
-        recipeId: req.params.recipeId, 
+        recipe: recipe,
         ingredients: ingredients
     })
 })
