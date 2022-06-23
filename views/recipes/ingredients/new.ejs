@@ -1,7 +1,7 @@
 <h1 class=" text-4xl text-black text-center"> Ingredients for <%=recipe.name%></h1>
 <div id="current-ingredients" class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <% if(ingredients.length>0) { %>
-        <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table class="table-auto w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr >
                 <th scope="col" class="px-6 py-3">Ingredient</th>
@@ -14,7 +14,7 @@
             </thead>
             <tbody>
                 <% ingredients.forEach(ingredient => { %>
-                    <tr class="bg-white border-b dark:bg-gray-800">
+                    <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900"><%=ingredient.name%></th>
                         <td class="px-6 py-4"><%=ingredient.quantity%></td>
                         <td class="px-6 py-4"><%=ingredient.measure%></td>
@@ -39,8 +39,9 @@
         <p class="text-center  ">Add Ingredients Below</p>
         <% } %>
 </div>
-<div class=" bg-gray-200">
-    <div id="new-ingredient" class="rounded border-solid border-green-500 border-4 mx-auto pt-5 w-3/5 bg-cover bg-[url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXfJiemntDYEb-3PrKDHEvEoQv1HaOYBledg&usqp=CAU')]">
+<div class=" mt-30">
+    <div id="new-ingredient" class="rounded border-solid border-green-500 border-4 mx-auto mt-20 w-72 bg-cover bg-[#AAF683]">
+        <h2 class="text-3xl text-center bg-[#8FC93A]">ADD INGREDIENT</h2>
         <form method="POST" action="/recipes/ingredients" class="mx-auto">
             <input class="mx-auto block text-center" name="ingrName" id="ingrName" type="text"required placeholder="ingredient name" aria-label="Ingredient Name">
             </br>
@@ -55,12 +56,12 @@
             </div>
             </br>
             <input name="recipeId" id="recipeId" type="hidden" value="<%=recipe.id%>">
-            <button type="submit" class="block mx-auto bg-black text-xl text-white">Confirm Ingredient</button>
+            <button type="submit" class="mt-4 block mx-auto bg-[#8FC93A] text-xl text-black border-4 border-solid border-green-700">Confirm Ingredient</button>
         </form>
     </div>
 </div>
 
 
-<div class="bg-blue-100">
+<div class="text-2xl bg-blue-100 w-72 mx-auto mt-10 text-center border-solid border-4 border-blue-500 rounded">
     <a href="/recipes/edit/<%=recipe.id%>">I'm done adding ingredients</a>
 </div>

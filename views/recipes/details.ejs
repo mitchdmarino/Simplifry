@@ -1,85 +1,105 @@
-<div class="bg-yellow-100">
-<h2 class="text-4xl text-center my-4"> <%= recipe.name %> </h2>
-<div class="flex mx-auto w-1/2">
-    <div class="w-1/2">
-        <a href="/recipes/<%=recipe.id%>/ingredients/new" class="flex justify-center"><button class="mx-auto focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5">Edit Recipe</button></a>
+<div class="">
+    <h2 class="text-4xl text-center my-4"> <%= recipe.name %> </h2>
+    <img src="<%=recipe.img%>" class="w-[300px] mx-auto text-center">
+
+    <div id="ingredients-container" class="">
+        <h3 class="text-center">Ingredients: </h3>
+        
+        <% if(ingredients.length>0) { %>
+            <table class="table-auto w-3/4 mx-auto text-sm text-left text-gray-500 ">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr >
+                    <th scope="col" class="px-6 py-3">Ingredient</th>
+                    <th scope="col" class="px-6 py-3">Amount</th>
+                    <th scope="col" class="px-6 py-3">Unit</th>
+                    <th scope="col" class="px-6 py-3">Nutritional Info</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% ingredients.forEach(ingredient => { %>
+                        <tr class="bg-white border-b ">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900"><%=ingredient.name%></th>
+                            <td class="px-6 py-4"><%=ingredient.quantity%></td>
+                            <td class="px-6 py-4"><%=ingredient.measure%></td>
+                            <% if (!ingredient.energy) { %>
+                                <td class="px-6 py-4" >Not Available</td>
+                            <% } else {%>
+                                <td class="px-6 py-4" ><a href="#">See More</a></td>
+                            <% } %>
+                        </tr>
+                        <%}) %>
+                </tbody>
+            </table>
+        <% } else {%>
+            <p class="text-center  ">Add Ingredients Below</p>
+            <% } %>
     </div>
-    <div class="w-1/2">
-        <form method="POST" action="/recipes/<%= recipe.id %>/?_method=DELETE" class="flex justify-center">
-            <button type="submit"class=" focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 ">Delete Recipe</button>
-        </form>
-</div>
-</div>
+    </div>
 
-<div id="ingredients-container" class="bg-green-200">
-    <h3 class="text-center">Ingredients: </h3>
-    <% if(ingredients) { %>
+    <div id="directions-container" class="text-center">
+        <h3 class="text-2xl">Directions: </h3> 
+        <p><%=recipe.directions%></p>
+    </div>
 
-        <% ingredients.forEach(ingredient => { %>
-            <li class="text-center"><%=ingredient.quantity%> <%=ingredient.measure%> <%=ingredient.name%></li>
-            <li>Calories: <%=ingredient.energy%></li>
-            
-        <%}) %>
-    <% } else { %>
-        <p>Edit the recipe to add ingredients</p>
-        <% } %>
-</div>
+    <div id="story-container" class="text-center">
+        <h3 class="text-2xl">Story: </h3>
 
-<div id="directions-container" class="text-center">
-    <h3>Directions: </h3> 
-    <p><%=recipe.directions%></p>
-</div>
+        <p><%= recipe.story %></p>
+    </div>
 
-<div id="story-container" class="text-center">
-    <h3>Story: </h3>
+    <div id="notes-container" class="text-center">
+        <h3 class="text-2xl">Additional notes: </h3>
 
-    <p><%= recipe.story %></p>
-</div>
-
-<div id="notes-container" class="text-center">
-    <h3>Additional notes: </h3>
-
-    <p><%= recipe.notes%></p>   
-</div>
-
-<div id="tag-container" class="bg-yellow-200">
-    <h3>Tags:</h3>
-    <% if (recipeCategories) { %>
-        <%recipeCategories.forEach(category => {%>
-            <li><%=category.name%></li>
-        <% }) } %>
-            <button>Add a tag</button>
-            <div class="">
-                <button class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Add Tag</button>
-                <form method="POST" action="/recipes/<%=recipe.id%>/categories/add/?_method=PUT">
-                    <label for="category">Tag:</label>
-                    <select name="category" id="category" class="w-48">
-                        <% if (categories) { %>
-                            <%categories.forEach(category => {%>
-                                
-                                <option value="<%=category.id %>"><%= category.name %></option>
-                           <% }) } %>
-                    </select>
-                    <button type="submit" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button>
-    
-                </form>
-    
-    
-                <form method="POST" action="/recipes/<%=recipe.id%>/categories/remove/?_method=PUT">
-                    <label for="category">Remove Tag:</label>
-                    <select name="category" id="category">
-                        <% if (recipeCategories) { %>
-                            <%recipeCategories.forEach(category => {%>
-                                
-                                <option value="<%=category.id %>"><%= category.name %></option>
-                           <% }) } %>
-                    </select>
-                    <button type="submit" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button>
-    
-                </form>
-                
-            </div>
-</div>
+        <p><%= recipe.notes%></p>   
+    </div>
+    <div class="flex mx-auto w-1/2">
+        <div class="w-1/2">
+            <a href="/recipes/<%=recipe.id%>/ingredients/new" class="flex justify-center"><button class="mx-auto focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5">Edit Recipe</button></a>
+        </div>
+        <div class="w-1/2">
+            <form method="POST" action="/recipes/<%= recipe.id %>/?_method=DELETE" class="flex justify-center">
+                <button type="submit"class=" focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 ">Delete Recipe</button>
+            </form>
+        </div>
+    </div>
+    <div id="tag-container" class="bg-yellow-200">
+        <h3>Tags:</h3>
+        <% if (recipeCategories) { %>
+            <%recipeCategories.forEach(category => {%>
+                <li><%=category.name%></li>
+            <% }) } %>
+                <button>Add a tag</button>
+                <div class="">
+                    <button class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Add Tag</button>
+                    <form method="POST" action="/recipes/<%=recipe.id%>/categories/add/?_method=PUT">
+                        <label for="category">Tag:</label>
+                        <select name="category" id="category" class="w-48">
+                            <% if (categories) { %>
+                                <%categories.forEach(category => {%>
+                                    
+                                    <option value="<%=category.id %>"><%= category.name %></option>
+                            <% }) } %>
+                        </select>
+                        <button type="submit" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button>
+        
+                    </form>
+        
+        
+                    <form method="POST" action="/recipes/<%=recipe.id%>/categories/remove/?_method=PUT">
+                        <label for="category">Remove Tag:</label>
+                        <select name="category" id="category">
+                            <% if (recipeCategories) { %>
+                                <%recipeCategories.forEach(category => {%>
+                                    
+                                    <option value="<%=category.id %>"><%= category.name %></option>
+                            <% }) } %>
+                        </select>
+                        <button type="submit" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button>
+        
+                    </form>
+                    
+                </div>
+    </div>
 
      
     <div id="nutrition container">
