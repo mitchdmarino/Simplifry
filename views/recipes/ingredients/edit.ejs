@@ -1,28 +1,32 @@
-ingredient:  <%=ingredient.name%>
-in the recipe: <%=recipe.name%>
 
- 
-
-    <div class=" bg-gray-200">
-        <div id="edit-ingredient" class="rounded border-solid border-green-500 border-4 mx-auto pt-5 w-3/5 bg-cover bg-[url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXfJiemntDYEb-3PrKDHEvEoQv1HaOYBledg&usqp=CAU')]">
-            <form method="POST" action="/recipes/<%=recipe.id%>/ingredients/<%=ingredient.id%>/?_method=PUT">
-                <input class="mx-auto block text-center" name="ingrName" id="ingrName" type="text"required aria-label="Ingredient Name" value="<%=ingredient.name%>">
-                </br>
-                <input class="mx-auto block text-center" name="ingrQuantity" id="ingrQuantity" type="number" required placeholder="quantity" aria-label="Quantity of Ingredient" value="<%=ingredient.quantity%>">
-                </br>
-                <div class="mx-auto block text-center">
-                    <label for="ingrMeasure">Units</label>
-                    <select class="mx-auto block text-center w-[150px]" name="ingrMeasure" id="ingrMeasure" required placeholder="units of measurement" aria-label="Units of Measurement" value="<%ingredient.measure%>">
-                        <option value="Gram">Grams</option>
-                        <option value="Whole">Whole</option>
-                        <option value="Ounce">Ounces</option>
-                </div>
-                </br>
-                <input name="recipeId" id="recipeId" type="hidden" value="<%=recipe.id%>">
-                <button type="submit" class="block mx-auto bg-black text-xl text-white">Confirm Changes</button>
-            </form>
+<div id="edit-ingredient" class=" w-[400px] mt-10 mx-auto border-solid border-[#0072BB] border-4 rounded-lg bg-[#1E91D6]">
+    <form method="POST" action="/recipes/<%=recipe.id%>/ingredients/<%=ingredient.id%>/?_method=PUT" class="mt-2 mx-auto">
+        <input class="mx-auto bg-blue-100 text-xl text-black border-4 border-solid border-blue-300 p-2 rounded-lg block rounded-lg text-center" name="ingrName" id="ingrName" type="text"required value="<%=ingredient.name%>" aria-label="Ingredient Name">
+        </br>
+        <input class="mx-auto bg-blue-100 text-xl text-black border-4 border-solid border-blue-300 p-2 rounded-lg block text-center" name="ingrQuantity" id="ingrQuantity" min="0" type="number" step="any" required value="<%=ingredient.quantity%>" aria-label="Quantity of Ingredient">
+        </br>
+        <div class="mx-auto block text-center">
+            <select class="mx-auto bg-blue-100 text-xl text-black border-4 border-solid border-blue-300 p-2 rounded-lg block text-center w-[150px]" name="ingrMeasure" id="ingrMeasure" required value="<%ingredient.measure%>" aria-label="Units of Measurement">
+                <option value="serving">Servings</option>
+                <option value="unit">Whole</option>
+                <option value="gram">Grams</option>
+                <option value="ounce">Ounces</option>
+                <option value="pound">Pounds</option>
+                <option value="kilogram">Kilograms</option>
+                <option value="slice">Slices</option>
+                <option value="cup">Cups</option>
+                <option value="pinch">Pinch</option>
+                <option value="dash">Dash</option>
+                <option value="teaspoon">Teaspoon</option>
+                <option value="tablespoon">Tablespoon</option>
         </div>
-    </div>
+        </br>
+        <input name="recipeId" id="recipeId" type="hidden" value="<%=recipe.id%>"/>
+        <button type="submit" class="mt-4 block mx-auto bg-blue-100 text-xl text-black border-4 border-solid border-blue-300 p-2 rounded-lg">Confirm</button>
+    </form>
+</div>
+
+
     
     
     

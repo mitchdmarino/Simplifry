@@ -1,90 +1,88 @@
 <div class="">
-    <h2 class="text-4xl text-center my-4"> <%= recipe.name %> </h2>
-    <div class="flex w-4/5 mx-auto justify-evenly">
-        <img src="<%=recipe.img%>" class="h-[400px] text-center">
-        <div id="nutritional information" class="h-[400px] w-[300px] grid grid-cols-3 grid-rows-9">
-            <div class="h-[50px] w-[100px]" >Name</div>
-            <div>Total</div>
-            <div>% DV</div>
-            <div>Calories (kCal)</div>
-            <div>
-                <% let totalCalories = 0 %>
-                <% ingredients.forEach(ingredient => { %>
-                    <% if (ingredient.energy) { %>
-                        <%totalCalories+= Number(ingredient.energy) %>
-                    <% } %>
-                <% }) %>
-                <%=Math.floor(totalCalories)%>
+    <h2 class="text-4xl text-center mt-4"> <%= recipe.name %> </h2>
+    <div class=" w-4/5 mx-auto ">
+        <img src="<%=recipe.img%>" class="h-[300px] my-2 w-[300px] object-contain text-center mx-auto block rounded-lg">
+        <div id="nutritional information" class="flex flex-wrap  items-center justify-center">
+            <div class="h-[100px] w-[200px] bg-blue-100 rounded-lg flex justify-center items-center border-solid border-blue-500 border-4">
+                <p class="text-blue-700 text-center font-sans"><span class="font-bold">Calories:</span> </br>
+                    <% let totalCalories = 0 %>
+                    <% ingredients.forEach(ingredient => { %>
+                        <% if (ingredient.energy) { %>
+                            <%totalCalories+= Number(ingredient.energy) %>
+                        <% } %>
+                    <% }) %>
+                    <%=Math.floor(totalCalories)%> kCal</p>
             </div>
-            <div>%</div>
-            <div>
-                Protein(g)
-            </div>
-            <div>
-                <% let totalProtein = 0 %>
-                <% ingredients.forEach(ingredient => { %>
-                    <% if (ingredient.protein) { %>
-                        <%totalProtein+= Number(ingredient.protein) %>
-                    <% } %>
-                <% }) %>
-                <%=Math.floor(totalProtein)%>
-            </div>
-            <div>%</div>
-            <div>Fat (g)</div>
-            <div><% let totalFat = 0 %>
+            <div class="h-[100px] w-[200px] bg-green-100 rounded-lg flex justify-center items-center border-solid border-green-500 border-4">
+                <p class="text-green-700 text-center font-sans"><span class="font-bold">Protein:</span></br>
+                    <% let totalProtein = 0 %>
+                    <% ingredients.forEach(ingredient => { %>
+                        <% if (ingredient.protein) { %>
+                            <%totalProtein+= Number(ingredient.protein) %>
+                        <% } %>
+                    <% }) %>
+                    <%=Math.floor(totalProtein)%>g
+            </div>             
+            <div class="h-[100px] w-[200px] bg-orange-100 rounded-lg flex justify-center items-center border-solid border-orange-500 border-4">
+                <p class="text-orange-700 text-center font-sans"><span class="font-bold">Fat:</span></br>
+                    <% let totalFat = 0 %>
                 <% ingredients.forEach(ingredient => { %>
                     <% if (ingredient.fat) { %>
                         <%totalFat+= Number(ingredient.fat) %>
                     <% } %>
                 <% }) %>
-                <%=Math.floor(totalFat)%></div>
-            <div>%</div>
-            <div>Carbohydrates (g)</div>
-            <div><% let totalCarbs = 0 %>
-                <% ingredients.forEach(ingredient => { %>
-                    <% if (ingredient.carbs) { %>
-                        <%totalCarbs+= Number(ingredient.carbs) %>
-                    <% } %>
-                <% }) %>
-                <%=Math.floor(totalCarbs)%></div>
-            <div>%</div>
-            <div>Sugar (g)</div>
-            <div><% let totalSugar = 0 %>
-                <% ingredients.forEach(ingredient => { %>
-                    <% if (ingredient.sugar) { %>
-                        <%totalSugar+= Number(ingredient.sugar) %>
-                    <% } %>
-                <% }) %>
-                <%=Math.floor(totalSugar)%></div>
-            <div>%</div>
-            <div>Fiber (g)</div>
-            <div><% let totalFiber = 0 %>
-                <% ingredients.forEach(ingredient => { %>
-                    <% if (ingredient.fiber) { %>
-                        <%totalFiber+= Number(ingredient.fiber) %>
-                    <% } %>
-                <% }) %>
-                <%=Math.floor(totalFiber)%></div>
-            <div>%</div>
-            <div>Sodium (mg)</div>
-            <div><% let totalSodium = 0 %>
-                <% ingredients.forEach(ingredient => { %>
-                    <% if (ingredient.NA) { %>
-                        <%totalSodium+= Number(ingredient.NA) %>
-                    <% } %>
-                <% }) %>
-                <%=Math.floor(totalSodium)%></div>
-            <div>%</div>
-            <div>Cholesterol (mg)</div>
-            <div><% let totalCholesterol = 0 %>
-                <% ingredients.forEach(ingredient => { %>
-                    <% if (ingredient.cholesterol) { %>
-                        <%totalCholesterol+= Number(ingredient.cholesterol) %>
-                    <% } %>
-                <% }) %>
-                <%=Math.floor(totalCholesterol)%></div>
-            <div>%</div>
-
+                <%=Math.floor(totalFat)%>g
+            </div> 
+            <div class="h-[100px] w-[200px] bg-red-100 rounded-lg flex justify-center items-center border-solid border-red-500 border-4">
+                <p class="text-red-700 text-center font-sans"><span class="font-bold">Carbohydrates:</span></br>
+                    <% let totalCarbs = 0 %>
+                    <% ingredients.forEach(ingredient => { %>
+                        <% if (ingredient.carbs) { %>
+                            <%totalCarbs+= Number(ingredient.carbs) %>
+                        <% } %>
+                    <% }) %>
+                    <%=Math.floor(totalCarbs)%>g
+            </div> 
+            <div class="h-[100px] w-[200px] bg-yellow-100 rounded-lg flex justify-center items-center border-solid border-yellow-500 border-4">
+                <p class="text-yellow-700 text-center font-sans"><span class="font-bold">Sugar:</span></br>
+                    <% let totalSugar = 0 %>
+                    <% ingredients.forEach(ingredient => { %>
+                        <% if (ingredient.sugar) { %>
+                            <%totalSugar+= Number(ingredient.sugar) %>
+                        <% } %>
+                    <% }) %>
+                    <%=Math.floor(totalSugar)%>g
+            </div>
+            <div class="h-[100px] w-[200px] bg-sky-100 rounded-lg flex justify-center items-center border-solid border-sky-500 border-4">
+                <p class="text-sky-700 text-center font-sans"><span class="font-bold">Dietary Fiber:</span></br>
+                    <% let totalFiber=0 %>
+                    <% ingredients.forEach(ingredient => { %>
+                        <% if (ingredient.fiber) { %>
+                            <%totalFiber+= Number(ingredient.fiber) %>
+                        <% } %>
+                    <% }) %>
+                    <%=Math.floor(totalFiber)%>g
+            </div>
+            <div class="h-[100px] w-[200px] bg-stone-100 rounded-lg flex justify-center items-center border-solid border-stone-500 border-4">
+                <p class="text-stone-700 text-center font-sans"><span class="font-bold">Sodium:</span></br>
+                    <% let totalSodium = 0 %>
+                    <% ingredients.forEach(ingredient => { %>
+                        <% if (ingredient.NA) { %>
+                            <%totalSodium+= Number(ingredient.NA) %>
+                        <% } %>
+                    <% }) %>
+                    <%=Math.floor(totalSodium)%>(mg)
+            </div>
+            <div class="h-[100px] w-[200px] bg-pink-100 rounded-lg flex justify-center items-center border-solid border-pink-500 border-4">
+                <p class="text-pink-700 text-center font-sans"><span class="font-bold">Cholesterol:</span></br>
+                    <% let totalCholesterol = 0 %>
+                    <% ingredients.forEach(ingredient => { %>
+                        <% if (ingredient.cholesterol) { %>
+                            <%totalCholesterol+= Number(ingredient.cholesterol) %>
+                        <% } %>
+                    <% }) %>
+                    <%=Math.floor(totalCholesterol)%>mg
+            </div>
         </div>
     </div>
 
@@ -122,30 +120,30 @@
     </div>
     </div>
 
-    <div id="directions-container" class="text-left">
-        <h3 class="text-2xl">Directions: </h3> 
+    <div id="directions-container" class="text-left my-10 mx-auto w-4/5 bg-white rounded-lg border-4 border-red-100 border-solid">
+        <h3 class="text-2xl text-center p-5">Directions: </h3> <hr>
         <% // show the directions over multiple lines %>
           <% let directions = recipe.directions %>
-           <% let stepByStep = directions.split('..') %>
+           <% let stepByStep = directions.split('//') %>
            <% stepByStep.forEach(step => { %>
-                <p><%=step%></p>
+                <p class="p-3"><%=step%></p>
            <% }) %> 
     </div>
 
-    <div id="story-container" class="text-center">
-        <h3 class="text-2xl">Story: </h3>
+    <div id="story-container" class=" text-left my-10 mx-auto w-4/5 bg-white rounded-lg border-4 border-red-100 border-solid">
+        <h3 class="text-2xl text-center p-5">Story: </h3> <hr>
 
-        <p><%= recipe.story %></p>
+        <p class="p-3"><%= recipe.story %></p>
     </div>
 
-    <div id="notes-container" class="text-center">
-        <h3 class="text-2xl">Additional notes: </h3>
+    <div id="notes-container" class="text-left my-10 mx-auto w-4/5 bg-white rounded-lg border-4 border-red-100 border-solid">
+        <h3 class="text-2xl p-5">Additional notes: </h3> <hr>
 
-        <p><%= recipe.notes%></p>   
+        <p class="p-3"><%= recipe.notes%></p>   
     </div>
     <div class="flex mx-auto w-1/2">
         <div class="w-1/2">
-            <a href="/recipes/<%=recipe.id%>/ingredients/new" class="flex justify-center"><button class="mx-auto focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5">Edit Recipe</button></a>
+            <a href="/recipes/edit/<%=recipe.id%>" class="flex justify-center"><button class="mx-auto focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5">Edit Recipe</button></a>
         </div>
         <div class="w-1/2">
             <form method="POST" action="/recipes/<%= recipe.id %>/?_method=DELETE" class="flex justify-center">
@@ -154,14 +152,11 @@
         </div>
     </div>
     <div id="tag-container" class="">
-        <h3>Tags:</h3>
         <% if (recipeCategories.length>0) { %>
             <%recipeCategories.forEach(category => {%>
-                <li><%=category.name%></li>
-            <% }) } else {%>
-                <p>There are currently no associated tags</p>
-                <%}%>
-                <button id="addTagButton" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Add a tag</button>
+                <a href="/categories/<%=category.id%>"><button><%=category.name%></button></a>
+            <% }) } %>
+                <button id="addTagButton" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Edit tags</button>
                 <div class="hidden "id="addTagForm">
                     
                     <form method="POST" action="/recipes/<%=recipe.id%>/categories/add/?_method=PUT">
