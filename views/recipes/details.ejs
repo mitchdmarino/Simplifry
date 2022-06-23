@@ -9,7 +9,7 @@
 
 <% if(ingredients) { %>
     <% ingredients.forEach(ingredient => { %>
-        <li><%=ingredient.name%></li>
+        <li><%=ingredient.quantity%> <%=ingredient.measure%> <%=ingredient.name%></li>
         
     <%}) %>
 <% } %>
@@ -66,6 +66,8 @@
             
         </div>
      
-        
+    <div id="nutrition container">
+
+    </div>
 
 </div>

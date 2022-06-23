@@ -2,6 +2,8 @@ const express = require('express')
 const req = require('express/lib/request')
 const router = express.Router()
 const db = require('../models')
+const axios = require('axios')
+require('dotenv').config()
 
 
 // GET /recipes, show a list of the user's recipes (if they are logged in )
@@ -42,7 +44,20 @@ router.post('/', async (req,res) => {
 
 // POST /recipes/ingredients to create and add ingredients to the recipe 
 router.post('/ingredients', async (req,res) => {
-    console.log()
+        const foodUrl = `https://api.edamam.com/api/food-database/v2/parser?app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}&ingr=${req.body.ingrName}`
+        axios.get(foodUrl)
+        .then(response => {
+            console.log(`🥶🥶🥶🥶🥶🥶🥶${ingredient.name}`, response.data.hints[0].measures)
+            let foodId = response.data.parsed[0].food.foodId
+            let measureUri = response.data.hints[0].measures[0].uri
+            return [foodId,measureUri]
+        })
+        .then(foodParams => {
+            console.log(foodParams)
+        })
+        .catch (err => {
+            console.log(err)
+        })
     const newIngredient = await db.ingredient.create({
         name: req.body.ingrName, 
         measure: req.body.ingrMeasure,
@@ -154,8 +169,39 @@ router.get('/:id', async (req,res) => {
         // pass along the first recipe (should be the only one, along with all of the ingredients 
         // associated with that recipe )
         const recipeCategories = await recipe[0].getCategories()
+        const ingredients = recipe[0].ingredients
+        
+        ingredients.forEach(ingredient => {
+            const foodUrl = `https://api.edamam.com/api/food-database/v2/parser?app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}&ingr=${ingredient.name}`
+        axios.get(foodUrl)
+        .then(response => {
+            console.log(`🥶🥶🥶🥶🥶🥶🥶${ingredient.name}`, response.data.hints[0].measures)
+            let foodId = response.data.parsed[0].food.foodId
+            let measureUri = response.data.hints[0].measures[0].uri
+            return [foodId,measureUri]
+        })
+        .then(foodParams => {
+            console.log(foodParams)
+            let nutritionUrl = `https://api.edamam.com/api/food-database/v2/nutrients?app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}`
+            axios.post(nutritionUrl, {
+                "ingredients": [
+                    {
+                        "quantity": 1,
+                        "measureURI": foodParams[1],
+                        "foodId": foodParams[0]
+                    }
+                ]
+            })
+        .then(response => {
+            console.log(response.data)
+        })
+        })
+        .catch (err => {
+            console.log(err)
+        })
+    })
 
-        res.render('recipes/details', {recipe: recipe[0], ingredients: recipe[0].ingredients, categories: categories, recipeCategories: recipeCategories})
+        res.render('recipes/details', {recipe: recipe[0], ingredients: ingredients, categories: categories, recipeCategories: recipeCategories})
         }
         
     }
