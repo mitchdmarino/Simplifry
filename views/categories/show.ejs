@@ -2,9 +2,12 @@ Category: <%=category.name%>
 </br>
 Recipes: 
 <% recipes.forEach(recipe => { %>
-    <li>
-        <%=recipe%> 
-    </li>
+    <div class="w-1/2 my-5 " >
+        <a href="/recipes/<%=recipe.id%>" class="mx-auto block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%=recipe.name%></h5>
+        <p class="font-normal text-gray-700 dark:text-gray-400"><%=recipe.story%></p>
+        </a>
+    </div>
 <% }) %>
 
 
@@ -14,4 +17,8 @@ Recipes:
 <form method="POST" action="/categories/<%=category.id%>/?_method=PUT">
     <input type="text" name="name"  id="name" value="<%=category.name%>">
     <button type="submit">Edit Name</button>
+</form>
+
+<form method="POST" action="/categories/<%= category.id %>/?_method=DELETE">
+    <button type="submit"class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Delete Category</button>
 </form>

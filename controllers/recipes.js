@@ -67,6 +67,9 @@ router.get('/edit/:id', async (req,res) => {
     res.render('recipes/edit', {recipe: recipe, categories: allCategories})
 })
 
+
+
+
 // GET /recipes/:id/ingredients/edit/:id to show a form for editing an ingredient 
 
 router.get('/:recipeId/ingredients/edit/:ingrId', async(req,res) => {
@@ -118,6 +121,8 @@ router.delete('/:recipeId/ingredients/:ingredientId', async (req,res) => {
     res.redirect(`/recipes/${req.params.recipeId}`)
 })
 
+
+
 // GET /recipes/:id show details about specific recipe, grab associated ingredients 
 router.get('/:id', async (req,res) => {
    try {
@@ -136,6 +141,10 @@ router.get('/:id', async (req,res) => {
             },
             include: [db.ingredient]
         })
+        let categories = await user.getCategories()
+        categories.forEach(category => {
+            console.log(category)
+        })
 
         
         // console.log(recipe[0], 'did we get the correct recipe?')
@@ -148,7 +157,7 @@ router.get('/:id', async (req,res) => {
             // console.log(recipe[0].ingredients, 'here are the ingredients')
         // pass along the first recipe (should be the only one, along with all of the ingredients 
         // associated with that recipe )
-        res.render('recipes/details', {recipe: recipe[0], ingredients: recipe[0].ingredients})
+        res.render('recipes/details', {recipe: recipe[0], ingredients: recipe[0].ingredients, categories: categories})
         }
         
     }
@@ -156,6 +165,26 @@ router.get('/:id', async (req,res) => {
    catch (err) {
        console.log(err,'😢')
    }
+})
+// PUT /recipes/:id/categories to find or create a category and add to recipe
+router.put('/:id/categories', async (req,res) => {
+    try {
+        const category = await db.category.findOne({
+            where: {
+                id: Number(req.body.category),
+            }
+        })
+        console.log(category, 'anybody home?')
+        const recipe = await db.recipe.findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+        await category.addRecipe(recipe)
+        await category.save()
+        res.redirect(`/recipes/${req.params.id}`)
+    }
+    catch {console.log}
 })
 
 // PUT /recipes/:id to edit the recipe details
@@ -173,6 +202,8 @@ router.put('/:id', async (req,res) => {
     await recipe.save()
     res.redirect(`/recipes/${recipe.id}`)
 })
+
+
 
 // GET Route to show Form to add ingredients to a given recipe
 router.get('/:recipeId/ingredients/new', async (req, res) => {

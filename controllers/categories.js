@@ -19,6 +19,7 @@ router.get('/', async (req,res) => {
     }
 })
 
+// post route to create a new category
 router.post('/', async (req,res) => {
     try {
         const user = res.locals.user
@@ -72,6 +73,15 @@ router.put('/:id', async (req,res) => {
     }
 })
 
+router.delete('/:id', async (req,res) => {
+    const category = await db.category.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    res.redirect('/categories')
+    
+})
 
 
 
