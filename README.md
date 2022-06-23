@@ -6,6 +6,21 @@ Simplifry is the best Sous Chef around! Conveniently organize all of your recipe
 
 ## Description 
 Simplifry is a website where users can store recipes. Once an account is created, users can add recipes to their account where they input the ingredients, directions, and any additional information. Nutritional data from the recipes will automatically be displayed. Users can create categories, and assign their recipes to categories for better organization. 
+
+## Technologies Used
+Sequelize
+
+Node.js 
+
+Express 
+
+EJS 
+
+Tailwind CSS
+
+Heroku (for deployment)
+
+
 ## API 
 Edamam Food Database API https://developer.edamam.com/food-database-api-docs
 
