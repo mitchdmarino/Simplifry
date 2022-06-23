@@ -30,7 +30,11 @@ router.get('/:id', async (req,res) => {
                 id: req.params.id
             }
         })
-        const user = res.locals.user
+        const user = await db.user.findOne({
+            where: {
+                id: publicRecipe.userId
+            }
+        })
         const ingredients = await publicRecipe.getIngredients()
         if (!publicRecipe) {
             res.clearCookie('userId')
