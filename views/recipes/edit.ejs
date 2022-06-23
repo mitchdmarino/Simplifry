@@ -47,14 +47,14 @@
         </table>
     
 </div>
-<div id="add-ingredient" class="hidden w-[400px] mt-4 mx-auto border-solid border-[#FE612C] border-4 rounded-lg bg-[#FD3A2D]">
+<div id="add-ingredient" class="hidden w-4/5 mt-4 mx-auto border-solid border-[#FE612C] border-4 rounded-lg bg-red-100">
     <form method="POST" action="/recipes/ingredients" class="mt-2 mx-auto">
-        <input class="mx-auto bg-red-100 text-xl text-black border-1  p-2 rounded-lg block rounded-lg text-center" name="ingrName" id="ingrName" type="text"required placeholder="ingredient name" aria-label="Ingredient Name">
+        <input class="mx-auto bg-white text-xl text-black border-1  p-2 rounded-lg block rounded-lg text-center" name="ingrName" id="ingrName" type="text"required placeholder="ingredient name" aria-label="Ingredient Name">
         </br>
-        <input class="mx-auto bg-red-100 text-xl text-black border-1  p-2 rounded-lg block text-center" name="ingrQuantity" id="ingrQuantity" min="0" type="number" step="any" required placeholder="quantity" aria-label="Quantity of Ingredient">
+        <input class="mx-auto bg-white text-xl text-black border-1  p-2 rounded-lg block text-center" name="ingrQuantity" id="ingrQuantity" min="0" type="number" step="any" required placeholder="quantity" aria-label="Quantity of Ingredient">
         </br>
         <div class="mx-auto block text-center">
-            <select class="mx-auto bg-red-100 text-xl text-black  p-2 rounded-lg block text-center w-[150px]" name="ingrMeasure" id="ingrMeasure" required placeholder="units of measurement" aria-label="Units of Measurement">
+            <select class="mx-auto bg-white text-xl text-black  p-2 rounded-lg block text-center w-[150px]" name="ingrMeasure" id="ingrMeasure" required placeholder="units of measurement" aria-label="Units of Measurement">
                 <option value="unit">Whole</option>
                 <option value="gram">Grams</option>
                 <option value="ounce">Ounces</option>
@@ -69,13 +69,13 @@
         </div>
         </br>
         <input name="recipeId" id="recipeId" type="hidden" value="<%=recipe.id%>"/>
-        <button type="submit" class="mt-4 block mx-auto bg-red-100 text-xl text-black border-4  p-2 rounded-lg">Confirm</button>
+        <button type="submit" class="mt-4 block mx-auto bg-red-400 text-xl text-black  p-2 m-2 rounded-lg">Confirm</button>
     </form>
 </div>
 </div>
 
 <div id="recipe details" class="shadow-md rounded-lg border-solid border-orange-500 border-4 mx-auto my-5 w-4/5 bg-cover bg-orange-100">
-        <h2 class="text-3xl p-3 text-center bg-orange-400">Edit Details</h2>
+        <h2 class="text-3xl p-3 text-center text-white bg-orange-400">Edit Details</h2>
         <div>
             <form method="POST" action="/recipes/<%=recipe.id%>/?_method=PUT">
                 <label class="mx-auto my-2 block text-center" for="name">Name</label>
@@ -101,7 +101,7 @@
                 <% } %>
                 
         
-                <button type="submit" class="my-4 block mx-auto bg-orange-400 text-xl text-black border-4 border-solid border-orange-500 p-2 rounded-lg">Confirm</button>
+                <button type="submit" class="my-4 block mx-auto bg-orange-400 text-xl text-white border-4 border-solid border-orange-500 p-2 rounded-lg">Confirm</button>
             </form>
         </div>
 </div>
