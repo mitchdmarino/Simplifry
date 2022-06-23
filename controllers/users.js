@@ -94,15 +94,17 @@ router.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
-router.get('/profile', (req, res) => {
+router.get('/profile', async (req, res) => {
 	// check if user is authorized
 	if (!res.locals.user) {
 		// if the user is not authorized, ask them to log in
 		res.render('users/login.ejs', { msg: 'please log in to continue' })
 		return // end the route here
 	}
-
-	res.render('users/profile', { user: res.locals.user })
+    const user = res.locals.user
+    const recipes = await user.getRecipes()
+    console.log(recipes, 'do we have recipes?')
+	res.render('users/profile', { user: user , recipes: recipes})
 })
 
 

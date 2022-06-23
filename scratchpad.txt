@@ -1,0 +1,42 @@
+user table              hasMany Recipes, hasMany categories
+
+name: String
+email: String
+password: String
+
+
+recipe table        belongsTo User, belongsToMany Categories, hasMany Ingredients
+
+id: int
+name: string 
+Directions: text 
+Story: text 
+Additional Notes: text 
+userId: FK integer
+
+sequelize model:create --name recipe --attributes name:string,directions:text,story:text,notes:text,userId:integer
+
+
+
+ingredient table        belongsTo Recipe
+id: int
+name: string
+measure: string
+quantity: integer
+recipeId: FK integer 
+sequelize model:create --name ingredient --attributes name:string,measure:string,quantity:integer,recipeId:integer
+
+
+category table      belongsToMany Recipes, belongsTo User
+id: int
+name: string
+userId: FK integer 
+sequelize model:create --name category --attributes name:string,userId:integer
+
+
+
+recipesCategories               
+recipeId: integer
+categoryId: integer 
+sequelize model:create --name recipesCategories --attributes recipeId:integer,categoryId:integer
+

@@ -1,3 +1,11 @@
 <h2>User Profile </h2>
 
-<h3>Thanks for being a user, <%=user.email%></h3>
+<h3>Thanks for being a user, <%=user.name%></h3>
+
+<p>FYI, you currently have the following recipes:
+    <% recipes.forEach(recipe => { %>
+        <li>
+            <%=recipe.name %>
+        </li>
+    <% }) %>
+</p>
