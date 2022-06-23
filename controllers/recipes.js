@@ -106,6 +106,16 @@ router.put('/:recipeId/ingredients/:ingredientId', async (req,res) => {
     }
 })
 
+//   DELETE /recipes/:id/ingredients/:id
+router.delete('/:recipeId/ingredients/:ingredientId', async (req,res) => {
+    await db.ingredient.destroy({
+        where: {
+            id: req.params.ingredientId
+        }
+    })
+    res.redirect(`/recipes/${req.params.recipeId}`)
+})
+
 // GET /recipes/:id show details about specific recipe, grab associated ingredients 
 router.get('/:id', async (req,res) => {
    try {
@@ -173,6 +183,21 @@ router.get('/:recipeId/ingredients/new', async (req, res) => {
         recipeId: req.params.recipeId, 
         ingredients: ingredients
     })
+})
+
+//Delete a recipe (and all of it's ingredients)
+router.delete('/:id', async (req,res) => {
+    await db.ingredient.destroy({
+        where: {
+            recipeId: req.params.id
+        }
+    })
+    await db.recipe.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    res.redirect('/recipes')
 })
 
 

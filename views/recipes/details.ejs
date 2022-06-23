@@ -1,11 +1,15 @@
 <h2> <%= recipe.name %> </h2>
 <h2><a href="/recipes/<%=recipe.id%>/ingredients/new">Edit this recipe</a></h2>
+<form method="POST" action="/recipes/<%= recipe.id %>/?_method=DELETE">
+    <button type="submit">Delete Recipe</button>
+</form>
 
 <h3>Ingredients: </h3>
 
 <% if(ingredients) { %>
     <% ingredients.forEach(ingredient => { %>
         <li><%=ingredient.name%></li>
+        
     <%}) %>
 <% } %>
 
