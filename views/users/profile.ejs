@@ -1,11 +1,16 @@
-<h2>User Profile </h2>
+<h2 class=" p-5 text-4xl text-center">User Profile </h2>
 
-<h3>Thanks for being a user, <%=user.name%></h3>
-
-<p>FYI, you currently have the following recipes:
-    <% recipes.forEach(recipe => { %>
-        <li>
-            <%=recipe.name %>
-        </li>
-    <% }) %>
-</p>
+<div class=" p-2 text-lg w-4/5 mx-auto">
+    <h3>Name: <%=user.name%></h3>
+    <h3>Email: <%=user.email%></h3>
+    
+    
+    
+    <p>You have added the following recipes: 
+        <% recipes.forEach(recipe => { %>
+            <li>
+                <%=recipe.name %>
+            </li>
+        <% }) %>
+    </p>
+</div>
