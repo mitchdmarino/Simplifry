@@ -78,12 +78,20 @@ However, this api is more restrictive (only 400 recipes total per month for free
 | GET | /recipes/new | New \(Read\) | shows a form to make a new recipe |
 | POST | /recipes/new | Create \(Create\) | creates an recipe with the POST payload\(form\) data |
 | GET | /recipes/:id | Show \(Read\) | list information about a specific recipe \(i.e. /recipes/1\) |
-| GET | /recipes/edit/:id | Edit \(Read\) | shows a form for editting a specific recipe \(i.e. /recipes/edit/1\) |
+| GET | /recipes/edit/:id | Edit \(Read\) | shows a form for editting a specific recipe and its ingredients \(i.e. /recipes/edit/1\) |
 | PUT | /recipes/:id | Update \(Update\) | updates the data for a specific recipe \(i.e. /recipes/1\) |
 | DELETE | /recipes/:id | Destroy \(Delete\) | deletes the recipe with the specified id \(i.e. /recipes/1\) |
 
+### Ingredients
+| VERB | URL pattern | Action \(CRUD\) | Description |
+| :--- | :--- | :--- | :--- |
+| POST | /recipes/:id/ingredients | New create | create ingredient, use edamam API to add nutritional information |
+| PUT | /recipes/:id/ingredients | Edit| edit ingredient, use edamam API to update nutritional information |
+| DELETE | /recipes/:id/ingredients | Destroy (DELETE) | delete ingredient |
 
-RESTful CRUD for Categories
+
+
+### RESTful CRUD for Categories
 | VERB | URL pattern | Action \(CRUD\) | Description |
 | :--- | :--- | :--- | :--- |
 | GET | /categories | Index \(Read\) | lists all of a user's categories |
@@ -91,8 +99,16 @@ RESTful CRUD for Categories
 | POST | /categories/new | Create \(Create\) | creates a category with the POST payload\(form\) data |
 | GET | /categories/:id/recipes | Show \(Read\) | shows all of a category's associated recipes (add association when recipe is created)|                          
 | GET | /categories/edit/:id | Edit \(Read\) | shows a form for editting a specific category\(i.e. /categories/edit/1\) |
-| PUT | /categories/:id | Update \(Update\) | updates the data for a specific category \(i.e. /category/1\) |
+| PUT | /categories/:id | Update \(Update\) | updates the name for a specific category \(i.e. /category/1\) |
+
 | DELETE | /categories/:id | Destroy \(Delete\) | deletes the category with the specified id. \(i.e. /categories/1\) |
+
+### Community: 
+| VERB | URL pattern | Action \(CRUD\) | Description |
+| :--- | :--- | :--- | :--- |
+| GET | /community | Index \(Read\) | lists all recipes where public=true (user set the recipe to be public) |
+| GET | /community/:recipeId | \(Read\) | shows details for the selected community recipe |
+
 ## WireFrames
 ![](img/indexWireframe.png)
 ![](img/recipeNewWireframe.png)
