@@ -44,28 +44,65 @@ router.post('/', async (req,res) => {
 
 // POST /recipes/ingredients to create and add ingredients to the recipe 
 router.post('/ingredients', async (req,res) => {
-        const foodUrl = `https://api.edamam.com/api/food-database/v2/parser?app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}&ingr=${req.body.ingrName}`
-        axios.get(foodUrl)
-        .then(response => {
-            console.log(`🥶🥶🥶🥶🥶🥶🥶${ingredient.name}`, response.data.hints[0].measures)
+        try {
+            // create an ingredient. Search for it on edamam API 
+            const foodUrl = `https://api.edamam.com/api/food-database/v2/parser?app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}&ingr=${req.body.ingrName}`
+            let response = await axios.get(foodUrl)
+            // foodId is the top hit's id 
             let foodId = response.data.parsed[0].food.foodId
-            let measureUri = response.data.hints[0].measures[0].uri
-            return [foodId,measureUri]
-        })
-        .then(foodParams => {
-            console.log(foodParams)
-        })
-        .catch (err => {
+            // for the units of measure, find the measure that matches the req.body.ingrmeasure input
+            let measureUri = ""
+            response.data.hints[0].measures.forEach(measure => {
+                if (measure.label===req.body.ingrMeasure) {
+                    measureUri = measure.uri
+                }
+            })
+            console.log(measureUri, '😡😡😡😡😡')
+            // console.log(measureUri)
+            // POST quantity, measureURI, and food ID to get nutrition info
+            const nutritionUrl = `https://api.edamam.com/api/food-database/v2/nutrients?app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}`
+            response = await axios.post(nutritionUrl, {
+                "ingredients": [
+                    {
+                        "quantity": Number(req.body.ingrQuantity),
+                        "measureURI": measureUri,
+                        "foodId": foodId
+                    }
+                ]
+            })
+            const totalNutrients = response.data.totalNutrients
+            const newIngredient = await db.ingredient.create({
+                name: req.body.ingrName, 
+                measure: req.body.ingrMeasure,
+                quantity: req.body.ingrQuantity, 
+                energy: totalNutrients.ENERC_KCAL.quantity,
+                fat: totalNutrients.FAT.quantity,
+                satFat: totalNutrients.FASAT.quantity,
+                transFat: totalNutrients.FASAT.quantity, // fix this 
+                carbs: totalNutrients.CHOCDF.quantity,
+                fiber: totalNutrients.FIBTG.quantity,
+                sugar: totalNutrients.SUGAR.quantity,
+                protein: totalNutrients.PROCNT.quantity,
+                cholesterol: totalNutrients.CHOLE.quantity,
+                NA: totalNutrients.NA.quantity,
+                CA: totalNutrients.CA.quantity,
+                MG: totalNutrients.MG.quantity,
+                K: totalNutrients.K.quantity,
+                FE: totalNutrients.FE.quantity,
+                ZN: totalNutrients.ZN.quantity,
+                P: totalNutrients.P.quantity,
+                vitA: totalNutrients.VITA_RAE.quantity,
+                vitC: totalNutrients.VITC.quantity,
+                vitD: totalNutrients.VITD.quantity,
+                vitB6: totalNutrients.VITB6A.quantity,
+                vitB12: totalNutrients.VITB12.quantity,
+                recipeId: Number(req.body.recipeId)
+            })
+            res.redirect(`/recipes/${req.body.recipeId}/ingredients/new`)
+        }
+        catch (err) {
             console.log(err)
-        })
-    const newIngredient = await db.ingredient.create({
-        name: req.body.ingrName, 
-        measure: req.body.ingrMeasure,
-        quantity: req.body.ingrQuantity, 
-        recipeId: Number(req.body.recipeId)
-    })
-    console.log(newIngredient)
-    res.redirect(`/recipes/${req.body.recipeId}/ingredients/new`)
+        }
     
 })
 
@@ -155,6 +192,7 @@ router.get('/:id', async (req,res) => {
                 id: req.params.id
             },
             include: [db.ingredient]
+            
         })
         let categories = await user.getCategories()
         
@@ -170,36 +208,6 @@ router.get('/:id', async (req,res) => {
         // associated with that recipe )
         const recipeCategories = await recipe[0].getCategories()
         const ingredients = recipe[0].ingredients
-        
-        ingredients.forEach(ingredient => {
-            const foodUrl = `https://api.edamam.com/api/food-database/v2/parser?app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}&ingr=${ingredient.name}`
-        axios.get(foodUrl)
-        .then(response => {
-            console.log(`🥶🥶🥶🥶🥶🥶🥶${ingredient.name}`, response.data.hints[0].measures)
-            let foodId = response.data.parsed[0].food.foodId
-            let measureUri = response.data.hints[0].measures[0].uri
-            return [foodId,measureUri]
-        })
-        .then(foodParams => {
-            console.log(foodParams)
-            let nutritionUrl = `https://api.edamam.com/api/food-database/v2/nutrients?app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}`
-            axios.post(nutritionUrl, {
-                "ingredients": [
-                    {
-                        "quantity": 1,
-                        "measureURI": foodParams[1],
-                        "foodId": foodParams[0]
-                    }
-                ]
-            })
-        .then(response => {
-            console.log(response.data)
-        })
-        })
-        .catch (err => {
-            console.log(err)
-        })
-    })
 
         res.render('recipes/details', {recipe: recipe[0], ingredients: ingredients, categories: categories, recipeCategories: recipeCategories})
         }

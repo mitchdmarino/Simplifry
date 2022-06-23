@@ -18,13 +18,40 @@ sequelize model:create --name recipe --attributes name:string,directions:text,st
 
 
 
-ingredient table        belongsTo Recipe
+ingredient table        belongsTo Recipe    hasOne: nutrition
 id: int
 name: string
-measure: string
+measure: float
 quantity: integer
 recipeId: FK integer 
-sequelize model:create --name ingredient --attributes name:string,measure:string,quantity:integer,recipeId:integer
+sequelize model:create --name ingredient --attributes name:string,measure:string,quantity:float,energy:float,fat:float,satFat:float,transFat:float,carbs:float,fiber:float,sugar:float,protein:float,cholesterol:float,NA:float,CA:float,MG:float,K:float,FE:float,ZN:float,P:float,vitA:float,vitC:float,vitD:float,vitB6:float,vitB12:float,recipeId:integer
+
+
+
+energy: float
+fat: float
+satFat: float
+transFat: float
+carbs: float
+fiber: float
+sugar: float
+protein: float
+cholesterol: float
+NA: float
+CA: float
+MG: float
+K: float 
+FE: float
+ZN: float
+P: float 
+vitA: float
+vitC: float
+vitB6: float
+vitB12: float
+vitD: float
+ingredientId: integer 
+sequelize model:create --name nutrition --attributes energy:float,fat:float,satFat:float,transFat:float,carbs:float,fiber:float,sugar:float,protein:float,cholesterol:float,NA:float,CA:float,MG:float,K:float,FE:float,ZN:float,P:float,vitA:float,vitC:float,vitD:float,vitB6:float,vitB12:float
+
 
 
 category table      belongsToMany Recipes, belongsTo User

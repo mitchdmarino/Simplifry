@@ -11,13 +11,33 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.ingredient.belongsTo(models.recipe)
     }
   }
   ingredient.init({
     name: DataTypes.STRING,
     measure: DataTypes.STRING,
-    quantity: DataTypes.INTEGER,
+    quantity: DataTypes.FLOAT,
+    energy: DataTypes.FLOAT,
+    fat: DataTypes.FLOAT,
+    satFat: DataTypes.FLOAT,
+    transFat: DataTypes.FLOAT,
+    carbs: DataTypes.FLOAT,
+    fiber: DataTypes.FLOAT,
+    sugar: DataTypes.FLOAT,
+    protein: DataTypes.FLOAT,
+    cholesterol: DataTypes.FLOAT,
+    NA: DataTypes.FLOAT,
+    CA: DataTypes.FLOAT,
+    MG: DataTypes.FLOAT,
+    K: DataTypes.FLOAT,
+    FE: DataTypes.FLOAT,
+    ZN: DataTypes.FLOAT,
+    P: DataTypes.FLOAT,
+    vitA: DataTypes.FLOAT,
+    vitC: DataTypes.FLOAT,
+    vitD: DataTypes.FLOAT,
+    vitB6: DataTypes.FLOAT,
+    vitB12: DataTypes.FLOAT,
     recipeId: DataTypes.INTEGER
   }, {
     sequelize,

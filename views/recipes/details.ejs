@@ -1,73 +1,93 @@
 <div class="bg-yellow-100">
-<h2 class="text-4xl"> <%= recipe.name %> </h2>
-<h2><a href="/recipes/<%=recipe.id%>/ingredients/new"><button class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Edit Recipe</button></a></h2>
-<form method="POST" action="/recipes/<%= recipe.id %>/?_method=DELETE">
-    <button type="submit"class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Delete Recipe</button>
-</form>
+<h2 class="text-4xl text-center my-4"> <%= recipe.name %> </h2>
+<div class="flex mx-auto w-1/2">
+    <div class="w-1/2">
+        <a href="/recipes/<%=recipe.id%>/ingredients/new" class="flex justify-center"><button class="mx-auto focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5">Edit Recipe</button></a>
+    </div>
+    <div class="w-1/2">
+        <form method="POST" action="/recipes/<%= recipe.id %>/?_method=DELETE" class="flex justify-center">
+            <button type="submit"class=" focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 ">Delete Recipe</button>
+        </form>
+</div>
+</div>
 
-<h3>Ingredients: </h3>
+<div id="ingredients-container" class="bg-green-200">
+    <h3 class="text-center">Ingredients: </h3>
+    <% if(ingredients) { %>
 
-<% if(ingredients) { %>
-    <% ingredients.forEach(ingredient => { %>
-        <li><%=ingredient.quantity%> <%=ingredient.measure%> <%=ingredient.name%></li>
-        
-    <%}) %>
-<% } %>
-
-
-
-
-<h3>Directions: </h3> 
-
-<p><%=recipe.directions%></p>
-
-<h3>Story: </h3>
-
-<p><%= recipe.story %></p>
-
-<h3>Additional notes: </h3>
-
-<p><%= recipe.notes%></p>
-
-<h3>Tags:</h3>
-<% if (recipeCategories) { %>
-    <%recipeCategories.forEach(category => {%>
-        <li><%=category.name%></li>
-    <% }) } %>
-
-        <div>
-            <button class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Add Tag</button>
-            <form method="POST" action="/recipes/<%=recipe.id%>/categories/add/?_method=PUT">
-                <label for="category">Tag:</label>
-                <select name="category" id="category">
-                    <% if (categories) { %>
-                        <%categories.forEach(category => {%>
-                            
-                            <option value="<%=category.id %>"><%= category.name %></option>
-                       <% }) } %>
-                </select>
-                <button type="submit" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button>
-
-            </form>
-
-
-            <form method="POST" action="/recipes/<%=recipe.id%>/categories/remove/?_method=PUT">
-                <label for="category">Remove Tag:</label>
-                <select name="category" id="category">
-                    <% if (recipeCategories) { %>
-                        <%recipeCategories.forEach(category => {%>
-                            
-                            <option value="<%=category.id %>"><%= category.name %></option>
-                       <% }) } %>
-                </select>
-                <button type="submit" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button>
-
-            </form>
+        <% ingredients.forEach(ingredient => { %>
+            <li class="text-center"><%=ingredient.quantity%> <%=ingredient.measure%> <%=ingredient.name%></li>
+            <li>Calories: <%=ingredient.energy%></li>
             
-        </div>
+        <%}) %>
+    <% } else { %>
+        <p>Edit the recipe to add ingredients</p>
+        <% } %>
+</div>
+
+<div id="directions-container" class="text-center">
+    <h3>Directions: </h3> 
+    <p><%=recipe.directions%></p>
+</div>
+
+<div id="story-container" class="text-center">
+    <h3>Story: </h3>
+
+    <p><%= recipe.story %></p>
+</div>
+
+<div id="notes-container" class="text-center">
+    <h3>Additional notes: </h3>
+
+    <p><%= recipe.notes%></p>   
+</div>
+
+<div id="tag-container" class="bg-yellow-200">
+    <h3>Tags:</h3>
+    <% if (recipeCategories) { %>
+        <%recipeCategories.forEach(category => {%>
+            <li><%=category.name%></li>
+        <% }) } %>
+            <button>Add a tag</button>
+            <div class="">
+                <button class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Add Tag</button>
+                <form method="POST" action="/recipes/<%=recipe.id%>/categories/add/?_method=PUT">
+                    <label for="category">Tag:</label>
+                    <select name="category" id="category" class="w-48">
+                        <% if (categories) { %>
+                            <%categories.forEach(category => {%>
+                                
+                                <option value="<%=category.id %>"><%= category.name %></option>
+                           <% }) } %>
+                    </select>
+                    <button type="submit" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button>
+    
+                </form>
+    
+    
+                <form method="POST" action="/recipes/<%=recipe.id%>/categories/remove/?_method=PUT">
+                    <label for="category">Remove Tag:</label>
+                    <select name="category" id="category">
+                        <% if (recipeCategories) { %>
+                            <%recipeCategories.forEach(category => {%>
+                                
+                                <option value="<%=category.id %>"><%= category.name %></option>
+                           <% }) } %>
+                    </select>
+                    <button type="submit" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button>
+    
+                </form>
+                
+            </div>
+</div>
+
      
     <div id="nutrition container">
-
+        
     </div>
 
 </div>
+
+<script>
+    
+</script>
