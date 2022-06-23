@@ -1,6 +1,12 @@
-this is for <%=recipeId%>
 
-<form method="POST" action="/ingredients/<%=recipeId%>">
+<% if(ingredients) { %>
+    <% ingredients.forEach(ingredient => { %>
+        <li><%=ingredient.name%></li>
+        <a href="/recipes/<%= recipeId %>/ingredients/edit/<%=ingredient.id%>">Edit</a>
+    <%}) %>
+<% } %>
+
+<form method="POST" action="/recipes/ingredients">
     
     <label for="ingrName">ingrname</label>
     <input name="ingrName" id="ingrName" type="text">
@@ -12,7 +18,13 @@ this is for <%=recipeId%>
 
     <label for="ingrQuantity">quantity</label>
     <input name="ingrQuantity" id="ingrQuantity" type="text">
+    
     </br>
-    <button id="editIngrs" type="submit">Add Ingr</button>
+    
+    <input name="recipeId" id="recipeId" type="text" value="<%=recipeId%>">
+    
+    <button type="submit">Add Ingr</button>
 
-</form>r
+</form>
+
+<a href="/recipes/edit/<%=recipeId%>">DONE</a>

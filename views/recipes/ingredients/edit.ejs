@@ -1,0 +1,21 @@
+ingredient:  <%=ingredient.name%>
+in the recipe: <%=recipe.name%>
+    <form method="POST" action="/recipes/<%=recipe.id%>/ingredients/<%=ingredient.id%>/?_method=PUT">
+    
+        <label for="ingrName">ingrname</label>
+        <input name="ingrName" id="ingrName" type="text" value="<%=ingredient.name%>">
+        </br>
+    
+        <label for="ingrMeasure">measure</label>
+        <input name="ingrMeasure" id="ingrMeasure" type="text" value="<%=ingredient.measure%>">
+        </br>
+    
+        <label for="ingrQuantity">quantity</label>
+        <input name="ingrQuantity" id="ingrQuantity" type="text" value="<%=ingredient.quantity%>">
+        </br>
+    
+        <input name="ingrId" type="text" value="<%=ingredient.id%>">
+
+        <button id="editIngrs" type="submit">Edit Ingredient</button>
+    
+    </form>
