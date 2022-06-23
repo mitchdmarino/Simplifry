@@ -246,73 +246,7 @@ router.put('/:recipeId/ingredients/:ingredientId', async (req,res) => {
         })
         const totalNutrients = response.data.totalNutrients
         // access the available nutrients. (not all nutrients are available for each food, so need to use if statements to check their status) 
-        let energy = 0
-        if (totalNutrients.ENERC_KCAL) {
-            energy = Number(totalNutrients.ENERC_KCAL.quantity)
-        }
-        let fat = 0 
-        if (totalNutrients.FAT) {
-            fat = Number(totalNutrients.FAT.quantity)
-        } 
-        let satFat = 0
-        if (totalNutrients.FASAT) {
-            satFat = totalNutrients.FASAT.quantity
-        } 
-        let transFat = 0
-        if (totalNutrients.FATRN) {
-            transFat = totalNutrients.FATRN.quantity
-        } 
-        let carbs = 0
-        if (totalNutrients.CHOCDF) {
-            carbs = Number(totalNutrients.CHOCDF.quantity)
-        } 
-        let fiber = 0
-        if (totalNutrients.FIBTG) {
-            fiber = Number(totalNutrients.FIBTG.quantity)
-        } 
-        let sugar = 0
-        if (totalNutrients.SUGAR) {
-            sugar = Number(totalNutrients.SUGAR.quantity)
-        }
-        let protein = 0
-        if (totalNutrients.PROCNT) {
-            protein = Number(totalNutrients.PROCNT.quantity)
-        }
-        let NA = 0
-        if (totalNutrients.NA) {
-            NA = Number(totalNutrients.NA.quantity)
-        }
-        let cholesterol = 0
-        if (totalNutrients.CHOLE) {
-            cholesterol = Number(totalNutrients.CHOLE.quantity)
-        }
-        await ingredient.update({
-            name: req.body.ingrName, 
-            measure: req.body.ingrMeasure,
-            quantity: req.body.ingrQuantity, 
-            energy: energy,
-            fat: fat,
-            satFat: satFat  ,
-            transFat: transFat, 
-            carbs: carbs,
-            fiber: fiber,
-            sugar: sugar,
-            protein: protein,
-            cholesterol: cholesterol,
-            NA: NA,
-            // CA: totalNutrients.CA.quantity,
-            // MG: totalNutrients.MG.quantity,
-            // K: totalNutrients.K.quantity,
-            // FE: totalNutrients.FE.quantity,
-            // ZN: totalNutrients.ZN.quantity,
-            // P: totalNutrients.P.quantity,
-            // vitA: totalNutrients.VITA_RAE.quantity,
-            // vitC: totalNutrients.VITC.quantity,
-            // vitD: totalNutrients.VITD.quantity,
-            // vitB6: totalNutrients.VITB6A.quantity,
-            // vitB12: totalNutrients.VITB12.quantity,
-            recipeId: Number(req.body.recipeId)
-        })
+        
         await ingredient.save()
         console.log(ingredient)
         const recipeId = ingredient.recipeId

@@ -54,27 +54,103 @@ router.post('/save/:id', async (req,res) => {
             // identify the user
             const user = res.locals.user
             // identify the recipe 
-            let recipe = await user.getRecipe({
-                id: req.params.id
+            let recipe = await db.recipe.findOne({
+                where: {
+                    id: req.params.id
+                }
             })
-            let ingredients = await user.getIngredients({
-
-            })
+            console.log(recipe)
+            let ingredients = await recipe.getIngredients()
+            console.log(ingredients)
             if (!recipe.public) {
                 res.clearCookie('userId')
                 res.redirect('/users/login', { msg: 'this recipe is not public' })
             } else {
-                const recipeCopy = await user.addRecipe({
-                    name: recipe.name,
-                    directions: recipe.directions,
-                    story: recipe.story,
-                    notes: recipe.notes,
-                    img: recipe.img,
-                    public: false
+                console.log('hellow')
+                const recipeCopy = await db.recipe.create({
+                        name: recipe.name,
+                        directions: recipe.directions,
+                        story: recipe.story,
+                        notes: recipe.notes,
+                        img: recipe.img,
+                        public: false, 
+                        userId: user.id
                 })
+                // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
+                for await (const ingredient of ingredients) {
+                    let energy = 0
+                    if (ingredient.energy) {
+                        energy = ingredient.energy
+                    }
+                    let fat = 0 
+                    if (ingredient.fat) {
+                        fat = ingredient.fat
+                    } 
+                    let satFat = 0
+                    if (ingredient.satFat) {
+                        satFat = ingredient.satFat
+                    } 
+                    let transFat = 0
+                    if (ingredient.transFat) {
+                        transFat = ingredient.transFat
+                    } 
+                    let carbs = 0
+                    if (ingredient.carbs) {
+                        carbs = ingredient.carbs
+                    } 
+                    let fiber = 0
+                    if (ingredient.fiber) {
+                        fiber = ingredient.fiber
+                    } 
+                    let sugar = 0
+                    if (ingredient.sugar) {
+                        sugar = ingredient.sugar
+                    }
+                    let protein = 0
+                    if (ingredient.protein) {
+                        protein = ingredient.protein
+                    }
+                    let NA = 0
+                    if (ingredient.NA) {
+                        NA = ingredient.NA
+                    }
+                    let cholesterol = 0
+                    if (ingredient.cholesterol) {
+                        cholesterol = ingredient.cholesterol
+                    }
+                    await db.ingredient.create({
+                        name: ingredient.name, 
+                        measure: ingredient.measure,
+                        quantity: ingredient.quantity, 
+                        energy: energy,
+                        fat: fat,
+                        satFat: satFat  ,
+                        transFat: transFat, 
+                        carbs: carbs,
+                        fiber: fiber,
+                        sugar: sugar,
+                        protein: protein,
+                        cholesterol: cholesterol,
+                        NA: NA,
+                        // CA: totalNutrients.CA.quantity,
+                        // MG: totalNutrients.MG.quantity,
+                        // K: totalNutrients.K.quantity,
+                        // FE: totalNutrients.FE.quantity,
+                        // ZN: totalNutrients.ZN.quantity,
+                        // P: totalNutrients.P.quantity,
+                        // vitA: totalNutrients.VITA_RAE.quantity,
+                        // vitC: totalNutrients.VITC.quantity,
+                        // vitD: totalNutrients.VITD.quantity,
+                        // vitB6: totalNutrients.VITB6A.quantity,
+                        // vitB12: totalNutrients.VITB12.quantity,
+                        recipeId: recipeCopy.id
+                    })
+                }
+                
+                console.log(recipeCopy, '🤯🥶🥶🥶🥶🥶😡😡')
+                res.redirect(`/recipes/${recipeCopy.id}`)
             }
-            //
-            for (const ingredient )
+
         }
         
     }
