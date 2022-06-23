@@ -7,6 +7,40 @@ Simplifry is the best Sous Chef around! Conveniently organize all of your recipe
 ## Description 
 Simplifry is a website where users can store recipes. Once an account is created, users can add recipes to their account where they input the ingredients, directions, and any additional information. Nutritional data from the recipes will automatically be displayed. Users can create categories, and assign their recipes to categories for better organization. 
 
+## Installation Instructions 
+To run Simplifry on your local machine, first fork and clone this repository. Then follow these steps: 
+1. In your terminal, navigate to the cloned repository. Run the command 
+```
+npm -install 
+```
+to install all of the packages needed to run the app. 
+
+2. You will need to add a few files for functionality. In your terminal in the same location as above, run the following command: 
+``` 
+touch .gitignore .env 
+```
+
+3. In the .gitignore file, add node_modules and .env 
+
+4. In the .env file, you need to add 3 variables. First, an ENC_KEY, which can be a random string. For example, you would write: 
+```
+ENC_KEY=fjkas;dfjka;djafdlskfjae;haaekfksjf;aldjfk
+```
+5. In the .env file, you will need two unique access codes to work with the edamam food database API. To acquire these, you will need to create an account and sign up for the Developer (free) version of the [Food Database API](https://developer.edamam.com/food-database-api). Once you complete this, you will be given an APP_ID and an API_KEY. Add both of these to the .env file as: 
+```
+APP_ID=##########
+API_KEY=#########
+```
+Make sure to replace the hashes with your unique code. 
+
+6. You will need to create the database for this project and migrate the models to it. In your terminal, run the following two commands: 
+``` 
+create db simplifry 
+sequelize db:migrate 
+```
+
+7. You're all set, run the nodemon command in your cloned repository and navigate to localhost.3000 in your browswer. 
+
 ## Technologies Used
 Sequelize
 
@@ -16,7 +50,7 @@ Express
 
 EJS 
 
-Tailwind CSS
+Tailwind CSS (and Flowbite for layouts)
 
 Heroku (for deployment)
 
