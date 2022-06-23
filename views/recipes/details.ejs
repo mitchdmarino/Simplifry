@@ -179,15 +179,9 @@
         <p class="p-3"><%= recipe.notes%></p>   
     </div>
     <div id="tag-container" class="mx-auto w-4/5  bg-white rounded-lg border-4 border-red-100 border-solid">
-        <% if (recipeCategories.length>0) { %>
-            <h3 class="text-2xl p-5">Categories:</h3>
+        <h3 class="text-2xl p-5">Categories:</h3>
             <div class="w-1/3">
                 <button id="addTagButton" class=" text-black font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Edit categories</button>
-            </div><hr>
-            <div class="p-3">
-                <%recipeCategories.forEach(category => {%>
-                    <a href="/categories/<%=category.id%>" class="text-center p-3"><button><%=category.name%></button></a>
-                <% }) } %>
             </div>
             <div class="hidden w-3/4 mx-auto text-center p-5 "id="addTagForm">
                     
@@ -216,6 +210,12 @@
                     <button type="submit" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button> 
                 </form>
                 <%  } %>
+            </div><hr>
+        <% if (recipeCategories.length>0) { %>
+            <div class="p-3">
+                <%recipeCategories.forEach(category => {%>
+                    <a href="/categories/<%=category.id%>" class="text-center p-3"><button><%=category.name%></button></a>
+                <% }) } %>
             </div>
     </div>
     <div class="flex mx-auto w-1/2 p-3 my-10">

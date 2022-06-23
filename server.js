@@ -68,6 +68,7 @@ app.use(async (req, res, next) => {
 app.use('/users', require('./controllers/users'))
 app.use('/recipes', require('./controllers/recipes'))
 app.use('/categories', require('./controllers/categories'))
+app.use('/community', require('./controllers/community'))
 
 
 

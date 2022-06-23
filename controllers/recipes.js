@@ -421,6 +421,12 @@ router.put('/:id/categories/remove', async (req,res) => {
 
 // PUT /recipes/:id to edit the recipe details
 router.put('/:id', async (req,res) => {
+    let public = false
+    // if the public input is checked
+    // set public to true
+    if (req.body.public) {
+        public = true
+    }
     const recipe = await db.recipe.findOne({
         where: {
             id: req.params.id
@@ -431,6 +437,7 @@ router.put('/:id', async (req,res) => {
     recipe.story = req.body.story
     recipe.notes = req.body.notes
     recipe.img = req.body.img
+    recipe.public = public
     await recipe.save()
     res.redirect(`/recipes/${recipe.id}`)
 })

@@ -1,8 +1,11 @@
 <div class="">
     <h2 class="text-4xl text-center mt-4"> <%= recipe.name %> </h2>
+    <h3 class="text-2xl text-center mt-4"> Owner: <span class="font-bold"><%= userName %> </span></h3>
     <div class=" w-4/5 mx-auto ">
-        <img src="<%=recipe.img%>" class="h-[300px] my-2 w-[300px] object-contain text-center mx-auto block rounded-lg">
-        <div id="nutritional information" class="flex flex-wrap  items-center justify-center">
+        <%if (recipe.img) { %>
+            <img src="<%=recipe.img%>" class="h-[300px] my-2 w-[300px] object-contain text-center mx-auto block rounded-lg">
+        <%}%>
+        <div id="nutritional information" class="flex flex-wrap  items-center justify-center p-5">
             <div class="h-[100px] w-[200px] bg-blue-100 rounded-lg flex justify-center items-center border-solid border-blue-500 border-4">
                 <p class="text-blue-700 text-center font-sans"><span class="font-bold">Calories:</span> </br>
                     <% let totalCalories = 0 %>
@@ -108,14 +111,52 @@
                             <% if (!ingredient.energy) { %>
                                 <td class="px-6 py-4" >Not Available</td>
                             <% } else {%>
-                                <td class="px-6 py-4" ><a href="#">See More</a></td>
+                                <td class="px-6 py-4" >
+                                    <button class="block w-full md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button" data-modal-toggle="<%= ingredient.name %>">
+                                    See More
+                                    </button>
+                                    <div id="<%= ingredient.name %>" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+                                        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                                            <!-- Modal content -->
+                                            <div class="relative bg-white rounded-lg shadow">
+                                                <!-- Modal header -->
+                                                <div class="flex justify-between items-center p-5 rounded-t border-b ">
+                                                    <h3 class="text-xl font-medium text-gray-900 ">
+                                                        <%= ingredient.quantity %> <%= ingredient.measure %> <%=ingredient.name%>
+                                                    </h3>
+                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="<%= ingredient.name %>">
+                                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                                                    </button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="p-6 space-y-6">
+                                                    <p class="text-base leading-relaxed text-gray-500 ">
+                                                    <span class="font-bold">Calories:</span> <%= Math.round(ingredient.energy*100)/100 %> kCal </br>
+                                                    <span class="font-bold">Protein:</span> <%= Math.round(ingredient.protein*100)/100 %> g </br>
+                                                    <span class="font-bold">Fat:</span> <%= Math.round(ingredient.fat*100)/100 %> g </br>
+                                                    <span class="font-bold">Carbohydrates:</span> <%= Math.round(ingredient.carbs*100)/100 %> g </br>
+                                                    <span class="font-bold">Sugar:</span> <%= Math.round(ingredient.sugar*100)/100 %> g </br>
+                                                    <span class="font-bold">Dietary Fiber:</span> <%= Math.round(ingredient.fiber*100)/100 %> g </br>
+                                                    <span class="font-bold">Sodium:</span> <%= Math.round(ingredient.NA*100)/100 %> mg </br>
+                                                    <span class="font-bold">Cholesterol:</span> <%= Math.round(ingredient.cholesterol*100)/100 %> mg </br>
+                                                    </p>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                             <% } %>
                         </tr>
                         <%}) %>
                 </tbody>
             </table>
+        <% } else {%>
+            <p class="text-center  ">No Ingredients Listed</p>
+            <% } %>
     </div>
     </div>
+    
 
     <div id="directions-container" class="text-left my-10 mx-auto w-4/5 bg-white rounded-lg border-4 border-red-100 border-solid">
         <h3 class="text-2xl text-center p-5">Directions: </h3> <hr>
@@ -138,16 +179,9 @@
 
         <p class="p-3"><%= recipe.notes%></p>   
     </div>
-    <div class="flex mx-auto w-1/2">
-        <div class="w-1/2">
-            <a href="/recipes/edit/<%=recipe.id%>" class="flex justify-center"><button class="mx-auto focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5">Edit Recipe</button></a>
-        </div>
-        <div class="w-1/2">
-            <form method="POST" action="/recipes/<%= recipe.id %>/?_method=DELETE" class="flex justify-center">
-                <button type="submit"class=" focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 ">Delete Recipe</button>
-            </form>
-        </div>
-    </div>
-</div>
 
-<button>SAVE RECIPE</button>
+    <div class="w-1/2 mx-auto mb-10">
+        <form method="POST" action="/community/save/<%=recipe.id%>" class="flex justify-center">
+            <button type="submit"class=" focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 ">Save Recipe</button>
+        </form>
+    </div>

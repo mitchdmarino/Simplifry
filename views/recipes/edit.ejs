@@ -89,6 +89,18 @@
                 <textarea class="mx-auto block text-center w-4/5 rounded-lg" name="notes" id="notes" ><%=recipe.notes%></textarea>
                 <label class="mx-auto my-2 block text-center"for="img">image source URL:</label>
                 <input class="mx-auto block text-center w-4/5 rounded-lg" name="img" id="img" type="text"  value="<%=recipe.img%>">
+                <% if (!recipe.public) { %> 
+                    <div class="flex items-center mx-auto w-1/2 mb-4">
+                        <input id="public" type="checkbox" name="public" value="true" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500">
+                        <label for="public" class="ml-2 text-sm font-medium text-gray-900 ">Public (other users will be able to view and save this recipe)</label>
+                    </div>
+                <% } else { %>
+                    <div class="flex items-center mx-auto w-1/2 mb-4">
+                        <input checked id="public" name="public" type="checkbox" value="true" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500">
+                        <label for="public" class="ml-2 text-sm font-medium text-gray-900 ">Public (other users will be able to view and save this recipe)</label>
+                    </div>
+                <% } %>
+                
         
                 <button type="submit" class="my-4 block mx-auto bg-[#8FC93A] text-xl text-black border-4 border-solid border-green-500 p-2 rounded-lg">Confirm</button>
             </form>
