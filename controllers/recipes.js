@@ -142,10 +142,6 @@ router.get('/:id', async (req,res) => {
             include: [db.ingredient]
         })
         let categories = await user.getCategories()
-        categories.forEach(category => {
-            console.log(category)
-        })
-
         
         // console.log(recipe[0], 'did we get the correct recipe?')
         if (recipe.length===0) {
@@ -157,7 +153,9 @@ router.get('/:id', async (req,res) => {
             // console.log(recipe[0].ingredients, 'here are the ingredients')
         // pass along the first recipe (should be the only one, along with all of the ingredients 
         // associated with that recipe )
-        res.render('recipes/details', {recipe: recipe[0], ingredients: recipe[0].ingredients, categories: categories})
+        const recipeCategories = await recipe[0].getCategories()
+
+        res.render('recipes/details', {recipe: recipe[0], ingredients: recipe[0].ingredients, categories: categories, recipeCategories: recipeCategories})
         }
         
     }
@@ -166,8 +164,8 @@ router.get('/:id', async (req,res) => {
        console.log(err,'😢')
    }
 })
-// PUT /recipes/:id/categories to find or create a category and add to recipe
-router.put('/:id/categories', async (req,res) => {
+// PUT /recipes/:id/categories/add to find or create a category and add to recipe
+router.put('/:id/categories/add', async (req,res) => {
     try {
         const category = await db.category.findOne({
             where: {
@@ -181,6 +179,25 @@ router.put('/:id/categories', async (req,res) => {
             }
         })
         await category.addRecipe(recipe)
+        await category.save()
+        res.redirect(`/recipes/${req.params.id}`)
+    }
+    catch {console.log}
+})
+router.put('/:id/categories/remove', async (req,res) => {
+    try {
+        const category = await db.category.findOne({
+            where: {
+                id: Number(req.body.category),
+            }
+        })
+        console.log(category, 'anybody home?')
+        const recipe = await db.recipe.findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+        await category.removeRecipe(recipe)
         await category.save()
         res.redirect(`/recipes/${req.params.id}`)
     }

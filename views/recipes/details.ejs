@@ -30,14 +30,14 @@
 <p><%= recipe.notes%></p>
 
 <h3>Tags:</h3>
-<% if (associatedCategories) { %>
-    <%associatedCategories.forEach(category => {%>
+<% if (recipeCategories) { %>
+    <%recipeCategories.forEach(category => {%>
         <li><%=category.name%></li>
     <% }) } %>
 
         <div>
             <button class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Add Tag</button>
-            <form method="POST" action="/recipes/<%=recipe.id%>/categories/?_method=PUT">
+            <form method="POST" action="/recipes/<%=recipe.id%>/categories/add/?_method=PUT">
                 <label for="category">Tag:</label>
                 <select name="category" id="category">
                     <% if (categories) { %>
@@ -49,7 +49,21 @@
                 <button type="submit" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button>
 
             </form>
-            <a href="/categories"></a><button>Create New Tag</button>
+
+
+            <form method="POST" action="/recipes/<%=recipe.id%>/categories/remove/?_method=PUT">
+                <label for="category">Remove Tag:</label>
+                <select name="category" id="category">
+                    <% if (recipeCategories) { %>
+                        <%recipeCategories.forEach(category => {%>
+                            
+                            <option value="<%=category.id %>"><%= category.name %></option>
+                       <% }) } %>
+                </select>
+                <button type="submit" class="focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Confirm</button>
+
+            </form>
+            
         </div>
      
         
