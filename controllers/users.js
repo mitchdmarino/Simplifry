@@ -18,12 +18,12 @@ router.post('/', async (req,res) => {
         // try to create the user
         // TODO: hash password
         const hashedPassword = bcrypt.hashSync(req.body.password,12)
-        const [user,created] = await db.user.create({
+        const user = await db.user.create({
             where: {name: req.body.name, email: req.body.email},
             defaults: {password: hashedPassword}
         })
         // if the user is new 
-        if (created) {
+        
             // login them by giving them cookie 
             // res.cookie('cookie name', cooki data)
             // todo: encrypt id 
@@ -43,13 +43,10 @@ router.post('/', async (req,res) => {
             res.redirect('/')
         }
         // if user was not created 
-        else {
+       
              // re render the login form with a message for the user 
-             console.log('that email already exists')
-             res.render('users/new.ejs', {msg: 'email exists in database already 😳'})
-        }
-           
-    }
+            //  console.log('that email already exists')
+            //  res.render('users/new.ejs', {msg: 'email exists in database already 😳'})
     catch (err) {
         console.log(err)
     }    
