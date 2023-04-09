@@ -18,7 +18,7 @@ router.post('/', async (req,res) => {
         // try to create the user
         // TODO: hash password
         const hashedPassword = bcrypt.hashSync(req.body.password,12)
-        const [user,created] = await db.user.findOrCreate({
+        const [user,created] = await db.user.create({
             where: {name: req.body.name, email: req.body.email},
             defaults: {password: hashedPassword}
         })
